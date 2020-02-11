@@ -1,0 +1,18 @@
+{
+  "lastname": "Last name",
+  "firstname": "first name",
+  "company": "Company",
+  "country": "Country",
+  "street": "Street Address",
+  "city": "city",
+  "state": "state",
+  "phone": "Phone Number",
+  "email": "Email Address",
+  "orderNotes": "Order Notes",
+  "dob": "Date Of Birth",
+  "address1": "Address 1",
+  "address2": "Address 2",
+  "zip": "zip code",
+  "buildNo": "building no.",
+  "appartNo": "appartment no."
+}
