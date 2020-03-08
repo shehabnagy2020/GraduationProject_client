@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import PageHome from "./components/Home/PageHome";
 import Page404 from "./components/404/Page404";
@@ -7,6 +7,11 @@ import PageLogin from "./components/Login/PageLogin";
 import PageRegsiter from "./components/Register/PageRegsiter";
 
 function App() {
+  useEffect(_ => {
+    if (true) require("./assets/styles/indexLTR.scss");
+    else require("./assets/styles/indexRTL.scss");
+  }, []);
+
   return (
     <Switch>
       <Route exact path="/code">

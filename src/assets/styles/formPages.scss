@@ -61,6 +61,7 @@
     color: $primary;
     font-weight: bold;
     margin: 0 0 30px 0;
+
     @media (min-width: 990px) {
       font-size: 2.5rem;
     }
@@ -88,7 +89,11 @@
     img {
       width: 30px;
       height: 30px;
-      margin: 0 12px 0 0;
+      @if ($ltr) {
+        margin: 0 12px 0 0;
+      } @else {
+        margin: 0 0 0 12px;
+      }
     }
 
     input {
