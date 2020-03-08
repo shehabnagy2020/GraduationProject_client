@@ -28,6 +28,7 @@
     flex-shrink: 0;
     order: 1;
     height: 40vh;
+    position: relative;
     @media (min-width: 990px) {
       height: 100vh;
       width: 60%;
@@ -38,6 +39,19 @@
       height: 100%;
       object-fit: cover;
       object-position: left;
+    }
+    svg {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      path {
+        fill: $dark;
+      }
+
+      @media (min-width: 990px) {
+        display: none;
+      }
     }
   }
 
@@ -67,8 +81,9 @@
     padding: 12px;
     align-items: center;
     background-color: $secondary;
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
     border-radius: 10px;
+    box-shadow: $boxShadow;
 
     img {
       width: 30px;
@@ -100,6 +115,6 @@
     text-transform: uppercase;
     padding: 12px;
     width: 100%;
-    margin: 20px 0 0 0;
+    margin: 15px 0 0 0;
   }
 }
