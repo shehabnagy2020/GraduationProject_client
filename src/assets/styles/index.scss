@@ -1,8 +1,11 @@
-@import "~bootstrap/scss/bootstrap.scss";
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
+$primary: #fcbb3b;
+$secondary: #3e4851;
+$dark: #343b45;
+
+@import "bootstrap/scss/_functions.scss";
+@import "bootstrap/scss/_variables.scss";
+@import "bootstrap/scss/_mixins.scss";
+@import "bootstrap/scss/_grid.scss";
+@import "bootstrap/scss/_reboot.scss";
+
 @import "./formPages.scss";
