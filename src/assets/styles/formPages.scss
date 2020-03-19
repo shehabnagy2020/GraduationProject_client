@@ -76,50 +76,83 @@
     line-height: 30px;
   }
 
-  .form-control {
-    width: 100%;
-    display: flex;
-    padding: 12px;
-    align-items: center;
-    background-color: $secondary;
-    margin: 0 0 15px 0;
-    border-radius: 10px;
-    box-shadow: $boxShadow;
+  .sub-title {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    color: $primary;
+  }
+}
+.form-control {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  background-color: $secondary;
+  margin: 0 0 15px 0;
+  border-radius: 10px;
+  box-shadow: $boxShadow;
 
-    img {
-      width: 30px;
-      height: 30px;
-      @if ($ltr) {
-        margin: 0 12px 0 0;
-      } @else {
-        margin: 0 0 0 12px;
-      }
-    }
+  &.m-0 {
+    margin: 0;
+  }
 
-    input {
-      flex-grow: 1;
-      font-size: 1rem;
-      background: none;
-      color: #ddd;
-      border: 0;
-      outline: none;
-
-      &::placeholder {
-        color: #ddd;
-      }
+  &.s-small {
+    width: 30vw;
+    @media (min-width: 990px) {
+      width: 20vw;
     }
   }
 
-  .form-btn {
+  img {
+    width: 30px;
+    height: 30px;
+    @if ($ltr) {
+      margin: 0 12px 0 0;
+    } @else {
+      margin: 0 0 0 12px;
+    }
+  }
+
+  input {
+    flex-grow: 1;
+    font-size: 1rem;
+    background: none;
+    color: #ddd;
     border: 0;
-    border-radius: 10px;
-    font-size: 1.3rem;
+    outline: none;
+
+    &::placeholder {
+      color: #ddd;
+    }
+  }
+}
+
+.form-control-label {
+  margin: 0 0 10px 0;
+  width: 100%;
+
+  &:last-of-type {
+    margin: 0;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  label {
+    font-size: 1.2rem;
     color: #fff;
-    background-color: $primary;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 12px;
-    width: 100%;
-    margin: 15px 0 0 0;
+    text-transform: capitalize;
+  }
+
+  input,
+  select {
+    padding: 10px;
+    font-size: 1rem;
+    background: $dark;
+    color: #fff;
+    border: 1px solid #ddd;
   }
 }

@@ -4,4 +4,16 @@
 @import "bootstrap/scss/_grid.scss";
 @import "bootstrap/scss/_reboot.scss";
 @import "./font-awesome.scss";
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+@import "./loops.scss";
+
+@import "./common.scss";
+@import "./modal.scss";
+
 @import "./formPages.scss";

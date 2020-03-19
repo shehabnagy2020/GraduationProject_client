@@ -1,9 +1,18 @@
 import React from "react";
 import BackImg from "../../assets/images/pic.jpg";
-import IconCode from "../../assets/images/code-icon.png";
 import { Helmet } from "react-helmet";
+import { connect } from "react-redux";
+import StudentImg from "../../assets/images/student.png";
+import AssistantImg from "../../assets/images/assistant.png";
+import DoctorImg from "../../assets/images/doctor.png";
+// import MainStduentAssignment from "../Modals/StudentAssignment/MainStduentAssignment";
+// import MainAddAssignment from "../Modals/AddAssignment/MainAddAssignment";
+// import MainSubjectAssginment from "../Modals/SubjectAssignment/MainSubjectAssginment";
+// import MainSolveAssignment from "../Modals/SolveAssignment/MainSolveAssignment";
+// import MainAddPost from "../Modals/AddPost/MainAddPost";
+// import MainBlockUnblock from "../Modals/BlcokUnblock/MainBlockUnblock";
 
-const PageCode = () => {
+const PageCode = ({ isRTL, symbol }) => {
   return (
     <>
       <Helmet>
@@ -17,13 +26,25 @@ const PageCode = () => {
             a course management system that belongs to el-shorouk academy that
             helps in managing the teaching process
           </p>
-          <div className="form-control">
+          <h2 className="sub-title">choose category</h2>
+          <div className="btns-container between">
+            <button className="btn img">
+              <img src={StudentImg} className="img-fluid" alt="" />
+            </button>
+            <button className="btn img mx-2">
+              <img src={AssistantImg} className="img-fluid" alt="" />
+            </button>
+            <button className="btn img">
+              <img src={DoctorImg} className="img-fluid" alt="" />
+            </button>
+          </div>
+          {/* <div className="form-control">
             <img src={IconCode} alt="" />
             <input placeholder="Enter your code" type="text" id="code" />
           </div>
-          <button type="submit" className="form-btn">
+          <button type="submit" className="btn btn-primary btn-block">
             enter
-          </button>
+          </button> */}
         </article>
         <article className="picture-container">
           <img src={BackImg} alt="" />
@@ -35,9 +56,22 @@ const PageCode = () => {
             ></path>
           </svg>
         </article>
+        {/* <MainStduentAssignment /> */}
+        {/* <MainAddAssignment /> */}
+        {/* <MainSubjectAssginment /> */}
+        {/* <MainSolveAssignment /> */}
+        {/* <MainAddPost /> */}
+        {/* <MainBlockUnblock /> */}
       </main>
     </>
   );
 };
 
-export default PageCode;
+const mapStateToProps = state => ({
+  isRTL: state.isRTL,
+  symbol: state.symbol
+});
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageCode);

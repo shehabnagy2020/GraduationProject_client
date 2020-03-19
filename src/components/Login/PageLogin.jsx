@@ -31,7 +31,7 @@ const PageLogin = () => {
               id="password"
             />
           </div>
-          <button type="submit" className="form-btn">
+          <button type="submit" className="btn btn-primary btn-block">
             login
           </button>
         </article>

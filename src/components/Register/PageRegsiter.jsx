@@ -41,7 +41,7 @@ const PageRegsiter = () => {
             <img src={IconPhone} alt="" />
             <input placeholder="Enter your phone" type="tel" id="phone" />
           </div>
-          <button type="submit" className="form-btn">
+          <button type="submit" className="btn btn-primary btn-block">
             register
           </button>
         </article>
