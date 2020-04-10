@@ -82,13 +82,21 @@
     color: $primary;
   }
 }
+.form-control-container {
+  width: 100%;
+  margin: 0 0 15px 0;
+}
+.form-select-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
 .form-control {
   width: 100%;
   display: flex;
   padding: 12px;
   align-items: center;
   background-color: $secondary;
-  margin: 0 0 15px 0;
   border-radius: 10px;
   box-shadow: $boxShadow;
 
@@ -113,7 +121,8 @@
     }
   }
 
-  input {
+  input,
+  select {
     flex-grow: 1;
     font-size: 1rem;
     background: none;
@@ -124,6 +133,12 @@
     &::placeholder {
       color: #ddd;
     }
+  }
+}
+
+select {
+  option {
+    color: #333;
   }
 }
 

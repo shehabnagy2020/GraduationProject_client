@@ -5,18 +5,19 @@ import { connect } from "react-redux";
 import StudentImg from "../../assets/images/student.png";
 import AssistantImg from "../../assets/images/assistant.png";
 import DoctorImg from "../../assets/images/doctor.png";
-// import MainStduentAssignment from "../Modals/StudentAssignment/MainStduentAssignment";
-// import MainAddAssignment from "../Modals/AddAssignment/MainAddAssignment";
-// import MainSubjectAssginment from "../Modals/SubjectAssignment/MainSubjectAssginment";
-// import MainSolveAssignment from "../Modals/SolveAssignment/MainSolveAssignment";
-// import MainAddPost from "../Modals/AddPost/MainAddPost";
-// import MainBlockUnblock from "../Modals/BlcokUnblock/MainBlockUnblock";
+import { Link } from "react-router-dom";
+import MainStduentAssignment from "../Modals/StudentAssignment/MainStduentAssignment";
+import MainAddAssignment from "../Modals/AddAssignment/MainAddAssignment";
+import MainSubjectAssginment from "../Modals/SubjectAssignment/MainSubjectAssginment";
+import MainSolveAssignment from "../Modals/SolveAssignment/MainSolveAssignment";
+import MainAddPost from "../Modals/AddPost/MainAddPost";
+import MainBlockUnblock from "../Modals/BlcokUnblock/MainBlockUnblock";
 
 const PageCode = ({ isRTL, symbol }) => {
   return (
     <>
       <Helmet>
-        <title>EA-Study | Code</title>
+        <title>EA-Study | Choose Type</title>
         <meta charSet="utf-8" />
       </Helmet>
       <main className="form-pages-container">
@@ -28,23 +29,22 @@ const PageCode = ({ isRTL, symbol }) => {
           </p>
           <h2 className="sub-title">choose category</h2>
           <div className="btns-container between">
-            <button className="btn img">
-              <img src={StudentImg} className="img-fluid" alt="" />
-            </button>
-            <button className="btn img mx-2">
-              <img src={AssistantImg} className="img-fluid" alt="" />
-            </button>
-            <button className="btn img">
-              <img src={DoctorImg} className="img-fluid" alt="" />
-            </button>
+            <Link to="/login/student">
+              <button className="btn img mx-2">
+                <img src={StudentImg} className="img-fluid" alt="" />
+              </button>
+            </Link>
+            <Link to="/login/assistant">
+              <button className="btn img mx-2">
+                <img src={AssistantImg} className="img-fluid" alt="" />
+              </button>
+            </Link>
+            <Link to="/login/doctor">
+              <button className="btn img mx-2">
+                <img src={DoctorImg} className="img-fluid" alt="" />
+              </button>
+            </Link>
           </div>
-          {/* <div className="form-control">
-            <img src={IconCode} alt="" />
-            <input placeholder="Enter your code" type="text" id="code" />
-          </div>
-          <button type="submit" className="btn btn-primary btn-block">
-            enter
-          </button> */}
         </article>
         <article className="picture-container">
           <img src={BackImg} alt="" />

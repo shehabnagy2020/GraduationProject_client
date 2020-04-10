@@ -3,7 +3,9 @@
 @import "bootstrap/scss/_mixins.scss";
 @import "bootstrap/scss/_grid.scss";
 @import "bootstrap/scss/_reboot.scss";
-@import "./font-awesome.scss";
+@import "font-awesome.scss";
+@import "~react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+@import "~react-toastify/dist/ReactToastify.min.css";
 
 * {
   padding: 0;

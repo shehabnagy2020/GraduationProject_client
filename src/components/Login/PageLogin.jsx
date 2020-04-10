@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BackImg from "../../assets/images/pic.jpg";
 import IconPassword from "../../assets/images/password-icon.png";
-import IconUser from "../../assets/images/user-icon.png";
+import IconEmail from "../../assets/images/email-icon.png";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { VALIDATION } from "../../store/CONSTANTS";
+import CircualarProgress from "../Loaders/CircualarProgress";
+import { connect } from "react-redux";
+import login from "../../store/actions/login";
 
-const PageLogin = () => {
+const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
+  let pageID = match.params.id;
+  let role_id =
+    pageID === "student"
+      ? "0"
+      : pageID === "assistant"
+      ? "1"
+      : pageID === "doctor"
+      ? "2"
+      : "";
+  useEffect(_ => {
+    if (
+      !(pageID === "student" || pageID === "assistant" || pageID === "doctor")
+    )
+      history.push("/");
+  }, []);
+
+  const [state, setState] = useState({
+    email: "",
+    password: ""
+  });
+  const [errorState, setErrorState] = useState({
+    email: false,
+    password: false
+  });
+  const checkErrors = _ => {
+    for (const key in errorState) {
+      if (errorState.hasOwnProperty(key)) {
+        const element = errorState[key];
+        if (element) return false;
+      }
+    }
+    return true;
+  };
+
+  const handleInputValidated = e => {
+    const id = e.target.id,
+      val = e.target.value;
+    if (VALIDATION[id].test(val)) {
+      setErrorState({ ...errorState, [id]: false });
+    } else {
+      setErrorState({ ...errorState, [id]: true });
+    }
+    setState({ ...state, [id]: val });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (checkErrors()) {
+      loginUser({ ...state, role_id });
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -12,29 +69,62 @@ const PageLogin = () => {
         <meta charSet="utf-8" />
       </Helmet>
       <main className="form-pages-container">
-        <article className="text-container">
+        <form className="text-container" onSubmit={handleSubmit}>
           <h1 className="title">login</h1>
 
-          <div className="form-control">
-            <img src={IconUser} alt="" />
-            <input
-              placeholder="Enter your username"
-              type="text"
-              id="username"
-            />
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconEmail} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your username"
+                type="text"
+                id="email"
+              />
+            </div>
+            {errorState.email && (
+              <div className="text-error">must be like example@example.com</div>
+            )}
           </div>
-          <div className="form-control">
-            <img src={IconPassword} alt="" />
-            <input
-              placeholder="Enter your password"
-              type="password"
-              id="password"
-            />
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconPassword} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your password"
+                type="password"
+                id="password"
+              />
+            </div>
+            {errorState.password && (
+              <div className="text-error">
+                must be 8 characters at least containing numbers and uppercases
+              </div>
+            )}
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
-            login
-          </button>
-        </article>
+          <CircualarProgress condition={pageLoaders.login} effect={true}>
+            {pageErrors.login === 1 && (
+              <div className="text-error">Failed to login</div>
+            )}
+            {pageErrors.login === 2 && (
+              <div className="text-error">Email not exist</div>
+            )}
+            {pageErrors.login === 3 && (
+              <div className="text-error">Password not correct</div>
+            )}
+            {pageErrors.login === 4 && (
+              <div className="text-error">This account is not approved yet</div>
+            )}
+            <button type="submit" className="btn btn-primary btn-block">
+              login
+            </button>
+          </CircualarProgress>
+          <Link to={`/register/${pageID}`} className="text-primary">
+            create new account ?
+          </Link>
+        </form>
         <article className="picture-container">
           <img src={BackImg} alt="" />
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -50,4 +140,13 @@ const PageLogin = () => {
   );
 };
 
-export default PageLogin;
+const mapStateToProps = state => ({
+  pageLoaders: state.pageLoaders,
+  pageErrors: state.pageErrors
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: user => dispatch(login(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);

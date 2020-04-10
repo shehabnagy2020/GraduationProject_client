@@ -1,12 +1,114 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BackImg from "../../assets/images/pic.jpg";
+import IconCode from "../../assets/images/code-icon.png";
 import IconEmail from "../../assets/images/email-icon.png";
 import IconPhone from "../../assets/images/phone-icon.png";
+import IconDepartment from "../../assets/images/department-icon.png";
+import IconGrade from "../../assets/images/grade-icon.png";
 import IconPassword from "../../assets/images/password-icon.png";
 import IconUser from "../../assets/images/user-icon.png";
 import { Helmet } from "react-helmet";
+import PageSpinner from "../Loaders/PageSpinner";
+import { Link } from "react-router-dom";
+import { VALIDATION } from "../../store/CONSTANTS";
+import CircualarProgress from "../Loaders/CircualarProgress";
+import { connect } from "react-redux";
+import register from "../../store/actions/register";
+import getGradeYear from "../../store/actions/getGradeYear";
+import getInstitute from "../../store/actions/getInstitute";
+import getDepartment from "../../store/actions/getDepartment";
 
-const PageRegsiter = () => {
+const PageRegsiter = ({
+  match,
+  history,
+  pageLoaders,
+  pageErrors,
+  registerUser,
+  departmentGet,
+  instituteGet,
+  gradeYearGet,
+  gradeYearArr,
+  instituteArr,
+  departmentArr
+}) => {
+  let pageID = match.params.id;
+  let role_id =
+    pageID === "student"
+      ? "0"
+      : pageID === "assistant"
+      ? "1"
+      : pageID === "doctor"
+      ? "2"
+      : "";
+  console.log(role_id);
+  useEffect(_ => {
+    if (
+      !(pageID === "student" || pageID === "assistant" || pageID === "doctor")
+    )
+      history.push("/");
+  }, []);
+
+  useEffect(_ => {
+    instituteGet();
+    gradeYearGet();
+  }, []);
+
+  const [state, setState] = useState({
+    email: "",
+    code: "",
+    name: "",
+    password: "",
+    phone: "",
+    grade_year: "",
+    institute: "",
+    department: ""
+  });
+  const [errorState, setErrorState] = useState({
+    email: false,
+    code: false,
+    name: false,
+    password: false,
+    phone: false
+  });
+  const checkErrors = _ => {
+    for (const key in errorState) {
+      if (errorState.hasOwnProperty(key)) {
+        const element = errorState[key];
+        if (element) return false;
+      }
+    }
+    return true;
+  };
+
+  const handleInputValidated = e => {
+    const id = e.target.id,
+      val = e.target.value;
+    if (VALIDATION[id].test(val)) {
+      setErrorState({ ...errorState, [id]: false });
+    } else {
+      setErrorState({ ...errorState, [id]: true });
+    }
+    setState({ ...state, [id]: val });
+  };
+
+  const handleInput = e => {
+    const id = e.target.id,
+      val = e.target.value;
+
+    setState({ ...state, [id]: val });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (checkErrors()) {
+      registerUser({ ...state, role_id });
+    }
+  };
+
+  const handleInst = inst => {
+    departmentGet(inst);
+  };
+
   return (
     <>
       <Helmet>
@@ -14,37 +116,153 @@ const PageRegsiter = () => {
         <meta charSet="utf-8" />
       </Helmet>
       <main className="form-pages-container">
-        <article className="text-container">
+        <form onSubmit={handleSubmit} className="text-container">
           <h1 className="title">register</h1>
 
-          <div className="form-control">
-            <img src={IconEmail} alt="" />
-            <input placeholder="Enter your email" type="email" id="email" />
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconCode} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your code"
+                type="text"
+                id="code"
+              />
+            </div>
+            {errorState.code && (
+              <div className="text-error">must be numbers only</div>
+            )}
           </div>
-          <div className="form-control">
-            <img src={IconUser} alt="" />
-            <input
-              placeholder="Enter your username"
-              type="text"
-              id="username"
-            />
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconEmail} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your email"
+                type="email"
+                id="email"
+              />
+            </div>
+            {errorState.email && (
+              <div className="text-error">must be like example@example.com</div>
+            )}
           </div>
-          <div className="form-control">
-            <img src={IconPassword} alt="" />
-            <input
-              placeholder="Enter your password"
-              type="password"
-              id="password"
-            />
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconUser} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your name"
+                type="text"
+                id="name"
+              />
+            </div>
+            {errorState.name && (
+              <div className="text-error">
+                must be 3 characters at least and special chars allowed
+              </div>
+            )}
           </div>
-          <div className="form-control">
-            <img src={IconPhone} alt="" />
-            <input placeholder="Enter your phone" type="tel" id="phone" />
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconPassword} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your password"
+                type="password"
+                id="password"
+              />
+            </div>
+            {errorState.password && (
+              <div className="text-error">
+                must be 8 characters containing numbers and uppercases
+              </div>
+            )}
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
-            register
-          </button>
-        </article>
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconPhone} alt="" />
+              <input
+                required
+                onChange={handleInputValidated}
+                placeholder="Enter your phone"
+                type="tel"
+                id="phone"
+              />
+            </div>
+            {errorState.phone && (
+              <div className="text-error">must be numbers only</div>
+            )}
+          </div>
+          {pageID === "student" && (
+            <>
+              <div className="form-control-container">
+                <div className="form-control">
+                  <img src={IconGrade} alt="" />
+                  <select required onChange={handleInput} id="grade_year">
+                    <option value="">Choose Grade Year</option>
+                    {gradeYearArr.length >= 1 &&
+                      gradeYearArr.map((grade, index) => (
+                        <option key={index} value={grade.name}>
+                          {grade.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+              <div className="form-control-container">
+                <div className="form-control">
+                  <img src={IconDepartment} alt="" />
+                  <div className="form-select-container">
+                    <select
+                      required
+                      onChange={e => handleInst(e.target.value)}
+                      id="institute"
+                    >
+                      <option value="">Choose Institute</option>
+                      {instituteArr.length >= 1 &&
+                        instituteArr.map((ins, index) => (
+                          <option key={index} value={ins.name}>
+                            {ins.name}
+                          </option>
+                        ))}
+                    </select>
+                    <select id="department" required onChange={handleInput}>
+                      <option value="">Choose Department</option>
+                      {departmentArr.length >= 1 &&
+                        departmentArr.map((dep, index) => (
+                          <option key={index} value={dep.name}>
+                            {dep.name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          <CircualarProgress condition={pageLoaders.register} effect={true}>
+            {pageErrors.register === 1 && (
+              <div className="text-error">Failed to register</div>
+            )}
+            {pageErrors.register === 2 && (
+              <div className="text-error">Code already exist</div>
+            )}
+            {pageErrors.register === 3 && (
+              <div className="text-error">Email already exist</div>
+            )}
+            <button type="submit" className="btn btn-primary btn-block">
+              register
+            </button>
+          </CircualarProgress>
+          <Link to={`/login/${pageID}`} className="text-primary">
+            have account ?
+          </Link>
+        </form>
         <article className="picture-container">
           <img src={BackImg} alt="" />
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -55,9 +273,25 @@ const PageRegsiter = () => {
             ></path>
           </svg>
         </article>
+        {(pageLoaders.register || pageLoaders.getDepartment) && <PageSpinner />}
       </main>
     </>
   );
 };
 
-export default PageRegsiter;
+const mapStateToProps = state => ({
+  pageLoaders: state.pageLoaders,
+  pageErrors: state.pageErrors,
+  gradeYearArr: state.gradeYearArr,
+  instituteArr: state.instituteArr,
+  departmentArr: state.departmentArr
+});
+
+const mapDispatchToProps = dispatch => ({
+  registerUser: user => dispatch(register(user)),
+  gradeYearGet: _ => dispatch(getGradeYear()),
+  instituteGet: _ => dispatch(getInstitute()),
+  departmentGet: institute => dispatch(getDepartment(institute))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageRegsiter);
