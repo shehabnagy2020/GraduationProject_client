@@ -19,7 +19,7 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
       : pageID === "doctor"
       ? "2"
       : "";
-  useEffect(_ => {
+  useEffect((_) => {
     if (
       !(pageID === "student" || pageID === "assistant" || pageID === "doctor")
     )
@@ -28,13 +28,13 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
 
   const [state, setState] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [errorState, setErrorState] = useState({
     email: false,
-    password: false
+    password: false,
   });
-  const checkErrors = _ => {
+  const checkErrors = (_) => {
     for (const key in errorState) {
       if (errorState.hasOwnProperty(key)) {
         const element = errorState[key];
@@ -44,7 +44,7 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
     return true;
   };
 
-  const handleInputValidated = e => {
+  const handleInputValidated = (e) => {
     const id = e.target.id,
       val = e.target.value;
     if (VALIDATION[id].test(val)) {
@@ -55,7 +55,7 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
     setState({ ...state, [id]: val });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (checkErrors()) {
       loginUser({ ...state, role_id });
@@ -121,9 +121,11 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
               login
             </button>
           </CircualarProgress>
-          <Link to={`/register/${pageID}`} className="text-primary">
-            create new account ?
-          </Link>
+          {pageID === "student" && (
+            <Link to={`/register/student`} className="text-primary">
+              create new account ?
+            </Link>
+          )}
         </form>
         <article className="picture-container">
           <img src={BackImg} alt="" />
@@ -140,13 +142,13 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   pageLoaders: state.pageLoaders,
-  pageErrors: state.pageErrors
+  pageErrors: state.pageErrors,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loginUser: user => dispatch(login(user))
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (user) => dispatch(login(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);

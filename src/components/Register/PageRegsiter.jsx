@@ -19,8 +19,6 @@ import getInstitute from "../../store/actions/getInstitute";
 import getDepartment from "../../store/actions/getDepartment";
 
 const PageRegsiter = ({
-  match,
-  history,
   pageLoaders,
   pageErrors,
   registerUser,
@@ -29,26 +27,13 @@ const PageRegsiter = ({
   gradeYearGet,
   gradeYearArr,
   instituteArr,
-  departmentArr
+  departmentArr,
 }) => {
-  let pageID = match.params.id;
-  let role_id =
-    pageID === "student"
-      ? "0"
-      : pageID === "assistant"
-      ? "1"
-      : pageID === "doctor"
-      ? "2"
-      : "";
-  console.log(role_id);
-  useEffect(_ => {
-    if (
-      !(pageID === "student" || pageID === "assistant" || pageID === "doctor")
-    )
-      history.push("/");
-  }, []);
+  let role_id = "0";
 
-  useEffect(_ => {
+  console.log(role_id);
+
+  useEffect((_) => {
     instituteGet();
     gradeYearGet();
   }, []);
@@ -59,18 +44,18 @@ const PageRegsiter = ({
     name: "",
     password: "",
     phone: "",
-    grade_year: "",
-    institute: "",
-    department: ""
+    grade_year_id: "",
+    institute_id: "",
+    department_id: "",
   });
   const [errorState, setErrorState] = useState({
     email: false,
     code: false,
     name: false,
     password: false,
-    phone: false
+    phone: false,
   });
-  const checkErrors = _ => {
+  const checkErrors = (_) => {
     for (const key in errorState) {
       if (errorState.hasOwnProperty(key)) {
         const element = errorState[key];
@@ -80,7 +65,7 @@ const PageRegsiter = ({
     return true;
   };
 
-  const handleInputValidated = e => {
+  const handleInputValidated = (e) => {
     const id = e.target.id,
       val = e.target.value;
     if (VALIDATION[id].test(val)) {
@@ -91,21 +76,21 @@ const PageRegsiter = ({
     setState({ ...state, [id]: val });
   };
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     const id = e.target.id,
       val = e.target.value;
 
     setState({ ...state, [id]: val });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (checkErrors()) {
       registerUser({ ...state, role_id });
     }
   };
 
-  const handleInst = inst => {
+  const handleInst = (inst) => {
     departmentGet(inst);
   };
 
@@ -198,53 +183,50 @@ const PageRegsiter = ({
               <div className="text-error">must be numbers only</div>
             )}
           </div>
-          {pageID === "student" && (
-            <>
-              <div className="form-control-container">
-                <div className="form-control">
-                  <img src={IconGrade} alt="" />
-                  <select required onChange={handleInput} id="grade_year">
-                    <option value="">Choose Grade Year</option>
-                    {gradeYearArr.length >= 1 &&
-                      gradeYearArr.map((grade, index) => (
-                        <option key={index} value={grade.name}>
-                          {grade.name}
-                        </option>
-                      ))}
-                  </select>
-                </div>
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconGrade} alt="" />
+              <select required onChange={handleInput} id="grade_year_id">
+                <option value="">Choose Grade Year</option>
+                {gradeYearArr.length >= 1 &&
+                  gradeYearArr.map((grade, index) => (
+                    <option key={index} value={grade.id}>
+                      {grade.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+          <div className="form-control-container">
+            <div className="form-control">
+              <img src={IconDepartment} alt="" />
+              <div className="form-select-container">
+                <select
+                  required
+                  onChange={(e) => handleInst(e.target.value)}
+                  id="institute_id"
+                >
+                  <option value="">Choose Institute</option>
+                  {instituteArr.length >= 1 &&
+                    instituteArr.map((ins, index) => (
+                      <option key={index} value={ins.id}>
+                        {ins.name}
+                      </option>
+                    ))}
+                </select>
+                <select id="department_id" required onChange={handleInput}>
+                  <option value="">Choose Department</option>
+                  {departmentArr.length >= 1 &&
+                    departmentArr.map((dep, index) => (
+                      <option key={index} value={dep.id}>
+                        {dep.name}
+                      </option>
+                    ))}
+                </select>
               </div>
-              <div className="form-control-container">
-                <div className="form-control">
-                  <img src={IconDepartment} alt="" />
-                  <div className="form-select-container">
-                    <select
-                      required
-                      onChange={e => handleInst(e.target.value)}
-                      id="institute"
-                    >
-                      <option value="">Choose Institute</option>
-                      {instituteArr.length >= 1 &&
-                        instituteArr.map((ins, index) => (
-                          <option key={index} value={ins.name}>
-                            {ins.name}
-                          </option>
-                        ))}
-                    </select>
-                    <select id="department" required onChange={handleInput}>
-                      <option value="">Choose Department</option>
-                      {departmentArr.length >= 1 &&
-                        departmentArr.map((dep, index) => (
-                          <option key={index} value={dep.name}>
-                            {dep.name}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
+            </div>
+          </div>
+
           <CircualarProgress condition={pageLoaders.register} effect={true}>
             {pageErrors.register === 1 && (
               <div className="text-error">Failed to register</div>
@@ -255,11 +237,14 @@ const PageRegsiter = ({
             {pageErrors.register === 3 && (
               <div className="text-error">Email already exist</div>
             )}
+            {pageErrors.register === 4 && (
+              <div className="text-error">Phone already exist</div>
+            )}
             <button type="submit" className="btn btn-primary btn-block">
               register
             </button>
           </CircualarProgress>
-          <Link to={`/login/${pageID}`} className="text-primary">
+          <Link to={`/login/student`} className="text-primary">
             have account ?
           </Link>
         </form>
@@ -273,25 +258,24 @@ const PageRegsiter = ({
             ></path>
           </svg>
         </article>
-        {(pageLoaders.register || pageLoaders.getDepartment) && <PageSpinner />}
       </main>
     </>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   pageLoaders: state.pageLoaders,
   pageErrors: state.pageErrors,
   gradeYearArr: state.gradeYearArr,
   instituteArr: state.instituteArr,
-  departmentArr: state.departmentArr
+  departmentArr: state.departmentArr,
 });
 
-const mapDispatchToProps = dispatch => ({
-  registerUser: user => dispatch(register(user)),
-  gradeYearGet: _ => dispatch(getGradeYear()),
-  instituteGet: _ => dispatch(getInstitute()),
-  departmentGet: institute => dispatch(getDepartment(institute))
+const mapDispatchToProps = (dispatch) => ({
+  registerUser: (user) => dispatch(register(user)),
+  gradeYearGet: (_) => dispatch(getGradeYear()),
+  instituteGet: (_) => dispatch(getInstitute()),
+  departmentGet: (institute) => dispatch(getDepartment(institute)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageRegsiter);

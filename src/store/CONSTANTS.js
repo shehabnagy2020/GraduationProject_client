@@ -1,8 +1,8 @@
 // export const SOCKET_API = "http://localhost:8000";
 // export const API = "http://localhost:8000/api";
-export const API = "https://sha.educationhost.cloud/api";
+export const API = "https://api.hicit-learning.me/api";
 // export const CDN = "http://localhost:8000";
-export const CDN = "https://sha.educationhost.cloud";
+export const CDN = "https://hicit-learning.me";
 
 ///// REDUX /////
 export const REDUX_USER = "REDUX_USER";
@@ -19,5 +19,5 @@ export const VALIDATION = {
   password: /^[a-z0-9A-Z]{8,}$/,
   name: /^[a-z0-9 ]{3,}$/,
   code: /^[0-9]+$/,
-  phone: /^[0-9]+$/
+  phone: /^[0-9]+$/,
 };
