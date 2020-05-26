@@ -6,6 +6,7 @@ import PageRegsiter from "./components/Register/PageRegsiter";
 import { ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
 import PageSpinner from "./components/Loaders/PageSpinner";
+import LoggedApp from "./LoggedApp";
 
 function App({ pageLoaders }) {
   useEffect((_) => {
@@ -25,6 +26,8 @@ function App({ pageLoaders }) {
         <Route exact path="/login/:id" component={PageLogin} />
 
         <Route exact path="/register/student" component={PageRegsiter} />
+
+        <Route path="/" component={LoggedApp} />
 
         <Redirect from="/" to="/code" />
         <Route path="*" />
