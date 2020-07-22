@@ -1,3 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Tahoma;
+    box-sizing: border-box;
+    outline: none;
+}
+
+
+body {
+    background-color: $dark;
+}
+
+
 .home-container {
     display: flex;
     width: 100vw;
@@ -5,7 +19,8 @@
     justify-content: flex-start;
     align-items: flex-start;
     min-height: 100vh;
-    padding: 20px 30px;
+    padding: 30px 80px;
+    padding-top: 13vh;
 }
 
 .home-left-container-item {
@@ -37,13 +52,19 @@
     justify-content: center;
     align-items: center;
     border: 5px solid;
-    width: 170px;
-    height: 170px;
-    background-color: $primary;
+    width: 130px;
+    height: 130px;
+    background-color: #fcbb3b;
     color: #ddd;
     font-size: 2rem;
     font-weight: bold;
     margin: 0 0 20px 0;
+    text-transform: uppercase;
+
+    p {
+        color: #fff;
+        margin: 0;
+    }
 }
 
 .st-content {
@@ -51,6 +72,14 @@
     color: #fff;
     text-transform: capitalize;
     text-align: center;
+
+    p {
+        margin: 0 0 3px 0;
+
+        &:last-of-type {
+            margin: 0 0 0 0;
+        }
+    }
 }
 
 .saved-posts-left {
@@ -177,53 +206,202 @@
 
 
 .home-post {
-    display: flex;
     border: 1px solid rgba(221, 221, 221, 0.336);
     /* box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, .4); */
-    padding: 20px 20px;
+    padding: 10px 20px;
     margin: 0 0 40px 0;
     position: relative;
     background-color: $secondary;
-    flex-flow: column;
-}
 
-.home-post a {
-    text-decoration: none;
-}
+    &:last-of-type {
+        margin: 0 0 20px 0;
+    }
 
-.home-post h4 {
-    font-size: 1.7rem;
-    font-weight: lighter;
-    color: #fff;
-    margin: 10px 0 0 40px;
-}
+    .post-header {
+        display: flex;
+        flex-flow: row;
+        padding: 10px 0;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
 
+        .post-thumbnail {
+            width: 80px;
+            height: 80px;
+        }
 
-.post-header {
-    display: flex;
-    flex-flow: row;
-    padding: 10px 0;
-}
+        .post-content {
+            display: flex;
+            flex-flow: column;
+            flex-grow: 1;
+            margin: 0 20px;
 
-.post-pic-container {
-    display: flex;
-    width: 100%;
-}
+            h2 {
+                color: #fff;
+                font-size: 1.5rem;
+                text-transform: capitalize;
+                font-weight: bold;
+                margin: 0 0 3px 0;
+            }
 
+            span {
+                color: #fff;
+                font-size: 1.1rem;
+                text-transform: capitalize;
+                font-weight: normal;
+                margin: 0;
+            }
+        }
+    }
 
-.comment {
-    display: flex;
-    border: none;
-    width: 100%;
-    position: absolute;
-    bottom: 1px;
-    padding: 10px 0;
-    background: $dark;
-}
+    .post-body p {
+        color: #fff;
+        font-size: 1.3rem;
+        margin: 0 0 15 px 0;
+        line-height: 25px;
+    }
 
-.comment_field {
-    display: flex;
-    position: relative;
-    background-color: $dark;
-    color: #ddd;
+    .post-body img {
+        width: 100%;
+        object-fit: fill;
+        height: 500px;
+    }
+
+    .post-comment-indicator {
+        padding: 10px 0;
+
+        span {
+            color: #fff;
+            font-size: 1.1rem;
+            text-transform: capitalize;
+        }
+    }
+
+    .post-footer {
+        display: flex;
+        align-items: center;
+
+        .post-btn {
+            border: 0;
+            background: $dark;
+            color: #fff;
+            padding: 15px;
+            font-weight: bold;
+            text-transform: capitalize;
+            font-size: 1.1rem;
+            flex-grow: 1;
+            outline: none;
+
+            i {
+                margin: 0 5px;
+            }
+        }
+    }
+
+    .comment-container {
+        width: 100%;
+    }
+
+    .comment-list {
+        padding: 15px 0;
+
+        .comment-item {
+            display: flex;
+            margin: 0 0 35px 0;
+
+            &:last-of-type {
+                margin: 0 0 10px 0;
+            }
+
+            .pic {
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 5px solid;
+                width: 50px;
+                height: 50px;
+                background-color: #fcbb3b;
+                color: #fff;
+                font-size: 1.2rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                flex-shrink: 0;
+            }
+
+        }
+
+        .content-container {
+            padding: 15px;
+            border-radius: 10px;
+            border: 0;
+            background: $dark;
+            color: #fff;
+            flex-grow: 1;
+            margin: 0 10px;
+            position: relative;
+
+            h3 {
+                font-weight: bold;
+                font-size: 1.3rem;
+                margin: 0 0 5px 0;
+                text-transform: capitalize;
+            }
+
+            p {
+                font-size: 1rem;
+                margin: 0;
+            }
+
+            span {
+                position: absolute;
+                bottom: -25px;
+                left: 15px;
+            }
+        }
+    }
+
+    .comment-input-container {
+        padding: 15px 0;
+        display: flex;
+        align-items: flex-start;
+
+        .pic {
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 5px solid;
+            width: 50px;
+            height: 50px;
+            background-color: #fcbb3b;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .input {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 0;
+            background: $dark;
+            color: #fff;
+            flex-grow: 1;
+            resize: none;
+            margin: 0 13px;
+        }
+
+        .btn {
+            border: 0;
+            color: #fff;
+            font-weight: bold;
+            background: $primary;
+            text-transform: capitalize;
+            padding: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+    }
 }

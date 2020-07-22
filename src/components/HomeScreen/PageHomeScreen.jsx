@@ -1,4 +1,6 @@
 import React from 'react'
+import PosterIMG from '../../assets/images/logo.png'
+import PostIMG from '../../assets/images/post.png'
 
 const PageHomeScreen = () => {
     return (
@@ -118,49 +120,85 @@ const PageHomeScreen = () => {
 
 
                 <div class="home-posts-container">
+
                     <div class="home-post">
                         <div class="post-header">
-                            <img src="./assets/logo.png" class="poster-pic" alt=""/>
-                                <a href="#"> Poster Name</a>
-                    </div>
-                            <div class="post-pic-container">
-                                <img src="./assets/post.png" class="post-pic" alt=""/>
-                    </div>
-                                <div class="comment">
-                                    <input type="text" name="comment_field" id="comment_field"/>
-                    </div>
+                            <img className="post-thumbnail" src={PosterIMG} />
+                            <div className="post-content"><h2>Poster Name</h2> <span>3m</span></div>
+                            <div className="post-menu">
+                                <div className="dropdown">
+                                    <div className="dropdown-toggle without">
+                                        <i className="fa fa-ellipsis-h"></i>
+                                    </div>
+                                    <div className="dropdown-list">
+                                        <div className="dropdown-list-item">
+                                            <button>Edit</button>
+                                        </div>
+                                        <div className="dropdown-list-item">
+                                            <button>Delete</button>
+                                        </div>
+
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quisquam magnam assumenda vel eligendi amet nemo dolore doloribus atque exercitationem beatae laudantium, magni neque mollitia quo blanditiis sed repudiandae voluptatum!</p>
+                            <img src={PostIMG} />
+                        </div>
+                        <div className="post-comment-indicator">
+                            <span>20 comment</span>
+                        </div>
+                        <div class="post-footer">
+                            <button className="post-btn">
+                                <i className="fa fa-comment"></i>
+                                comment
+                            </button>
+                            <button className="post-btn">
+                                <i className="fa fa-save"></i>
+                                save
+                            </button>
+                            <button className="post-btn">
+                                <i className="fa fa-download"></i>
+                                download
+                            </button>
+                        </div>
+                        <div class="comment-container">
 
-                                <div class="home-post">
-                                    <div class="post-header">
-                                        <img src="./assets/logo.png" class="poster-pic" alt=""/>
-                                            <a href="#"> Poster Name</a>
-                   </div>
-                                        <div class="post-pic-container">
-                                            <img src="./assets/post.png" class="post-pic" alt=""/>
-                   </div>
-                                            <div class="comment">
-                                                <input type="text" name="comment_field" id="comment_field"/>
-                   </div>
-                                            </div>
+                            <div className="comment-list">
+                                <div className="comment-item">
+                                    <div className="pic">st</div>
+                                    <div className="content-container">
+                                        <h3>saad tarek</h3>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum molestias adipisci, porro odit </p>
+                                        <span>3hrs</span>
+                                    </div>
+                                </div>
+                                <div className="comment-item">
+                                    <div className="pic">st</div>
+                                    <div className="content-container">
+                                        <h3>saad tarek</h3>
+                                        <p>etur adipisicing elit. Voluptatum molestias adipisci, porro odit </p>
+                                        <span>3hrs</span>
+                                    </div>
+                                </div>
+                            </div>
 
-                                            <div class="home-post">
-                                                <div class="post-header">
-                                                    <img src="./assets/logo.png" class="poster-pic" alt=""/>
-                                                        <a href="#"> Poster Name</a>
+                            <form class="comment-input-container">
+                                <div className="pic">sh</div>
+                                <textarea rows="2" className="input" placeholder="Enter your comment"></textarea>
+                                <button className="btn"><i className="fa fa-paper-plane"></i></button>
+                            </form >
+                            <div className="comment-list"></div>
+
+                        </div>
                     </div>
-                                                    <div class="post-pic-container">
-                                                        <img src="./assets/post.png" class="post-pic" alt=""/>
-                    </div>
-                                                        <div class="comment">
-                                                            <input type="text" name="comment_field" id="comment_field"/>
-                    </div>
-                                                        </div>
 
-                                                    </div>
-                                                </div>
 
-                                            </div>
+                </div>
+            </div>
+
+        </div>
     )
 }
 
