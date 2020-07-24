@@ -1,8 +1,4 @@
-@import "bootstrap/scss/_functions.scss";
-@import "bootstrap/scss/_variables.scss";
-@import "bootstrap/scss/_mixins.scss";
-@import "bootstrap/scss/_grid.scss";
-@import "bootstrap/scss/_reboot.scss";
+@import "bootstrap/scss/bootstrap.scss";
 @import "font-awesome.scss";
 @import "~react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 @import "~react-toastify/dist/ReactToastify.min.css";
@@ -19,3 +15,5 @@
 @import "./modal.scss";
 
 @import "./formPages.scss";
+@import "./doctorAssignment.scss";
+@import "./Header.scss";
