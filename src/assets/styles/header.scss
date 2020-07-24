@@ -6,6 +6,7 @@
     justify-content: space-between;
     position: fixed;
     width: 100%;
+    z-index: 1000;
 }
 
 .header-col {
@@ -68,6 +69,7 @@
 
 .dropdown {
     position: relative;
+
 }
 
 .dropdown-toggle {
@@ -75,6 +77,10 @@
     color: #fff;
     text-transform: capitalize;
     cursor: pointer;
+
+    &.without::after {
+        display: none;
+    }
 }
 
 .dropdown:hover .dropdown-list {
@@ -105,6 +111,17 @@
     transition: .3s all;
 }
 
-.dropdown-list-item:hover a {
+.dropdown-list-item button {
+    font-size: 1.2rem;
+    color: #fff;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: .3s all;
+    background: none;
+    border: 0;
+}
+
+.dropdown-list-item:hover a,
+.dropdown-list-item:hover button {
     color: $primary;
 }

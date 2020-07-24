@@ -4,7 +4,7 @@
     display: flex;
     background: $secondary;
     min-height: 100vh;
-    padding-top: 12vh;
+    padding-top: 13vh;
 }
 
 .title {
@@ -32,16 +32,15 @@
     display: flex;
     flex-flow: column;
     border: 1px solid rgba(221, 221, 221, 0.514);
-    width: 50%;
+    width: 40%;
     color: #ddd;
     /* padding: 0 20px; */
 }
 
 .assignment-no {
     display: flex;
-    padding: 0 10px;
     border: 1px solid rgba(221, 221, 221, 0.514);
-    margin: 25px 0 0 0;
+    margin: 15px 0 0 0;
     background: $dark;
     justify-content: center;
     text-align: center;
@@ -66,4 +65,5 @@
     background: $secondary;
     justify-content: center;
     text-align: center;
+    flex-flow: column;
 }

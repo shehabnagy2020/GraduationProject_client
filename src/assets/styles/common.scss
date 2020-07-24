@@ -19,9 +19,11 @@
       font-size: 2rem;
     }
   }
+
   &.img {
     padding: 0;
   }
+
   &.btn-primary {
     background-color: $primary;
   }
@@ -86,18 +88,24 @@
   button:first-child {
     @if ($ltr) {
       border-radius: 10px 0 0 10px;
-    } @else {
+    }
+
+    @else {
       border-radius: 0 10px 10px 0;
     }
   }
+
   button:last-child {
     @if ($ltr) {
       border-radius: 0 10px 10px 0;
-    } @else {
+    }
+
+    @else {
       border-radius: 10px 0 0 10px;
     }
   }
 }
+
 .lead-text {
   font-size: 1.2rem;
   color: #fff;
@@ -148,6 +156,7 @@
   color: $danger;
   font-size: 1rem;
 }
+
 .text-primary {
   margin: 5px 0;
   color: $primary;

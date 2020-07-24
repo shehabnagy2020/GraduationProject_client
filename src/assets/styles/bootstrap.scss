@@ -6,7 +6,7 @@
 * {
   padding: 0;
   margin: 0;
-  outline: none;
+  outline: none !important;
 }
 
 @import "./loops.scss";
@@ -17,3 +17,5 @@
 @import "./formPages.scss";
 @import "./doctorAssignment.scss";
 @import "./Header.scss";
+@import "./studentAssignment.scss";
+@import "./homeScreen.scss";
