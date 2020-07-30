@@ -1,0 +1,2 @@
+sass --watch src/assets/styles/indexRTL.scss public/styles/indexRTL.css --no-source-map
+sass --watch src/assets/styles/indexLTR.scss public/styles/indexLTR.css --no-source-map

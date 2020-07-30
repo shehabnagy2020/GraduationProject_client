@@ -5,7 +5,9 @@ import {
   API,
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
+  REDUX_IS_LOGED,
 } from "../CONSTANTS";
+import { toast } from "react-toastify";
 
 export default (user) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { login: true } });
@@ -20,20 +22,26 @@ export default (user) => async (dispatch, getState) => {
       type: REDUX_USER,
       value: { ...res.data },
     });
+    dispatch({
+      type: REDUX_IS_LOGED,
+      value: true,
+    });
     dispatch({ type: REDUX_PAGE_ERRORS, value: { login: 0 } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { login: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { login: 1 } });
+    // dispatch({ type: REDUX_PAGE_ERRORS, value: { login: 1 } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { login: false } });
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.data) {
       if (errRes.data.message === "email address not exist")
-        dispatch({ type: REDUX_PAGE_ERRORS, value: { login: 2 } });
+        toast.error("email address not exist");
       if (errRes.data.message === "password is invalid")
-        dispatch({ type: REDUX_PAGE_ERRORS, value: { login: 3 } });
+        toast.error("password is invalid");
       if (errRes.data.message === "account hasn't approved yet")
-        dispatch({ type: REDUX_PAGE_ERRORS, value: { login: 4 } });
+        toast.error("account hasn't approved yet");
+    } else {
+      toast.error("Failed to login");
     }
     console.log(errRes);
   }

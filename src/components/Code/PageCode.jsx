@@ -6,12 +6,6 @@ import StudentImg from "../../assets/images/student.png";
 import AssistantImg from "../../assets/images/assistant.png";
 import DoctorImg from "../../assets/images/doctor.png";
 import { Link } from "react-router-dom";
-import MainStduentAssignment from "../Modals/StudentAssignment/MainStduentAssignment";
-import MainAddAssignment from "../Modals/AddAssignment/MainAddAssignment";
-import MainSubjectAssginment from "../Modals/SubjectAssignment/MainSubjectAssginment";
-import MainSolveAssignment from "../Modals/SolveAssignment/MainSolveAssignment";
-import MainAddPost from "../Modals/AddPost/MainAddPost";
-import MainBlockUnblock from "../Modals/BlcokUnblock/MainBlockUnblock";
 
 const PageCode = ({ isRTL, symbol }) => {
   return (
@@ -56,22 +50,16 @@ const PageCode = ({ isRTL, symbol }) => {
             ></path>
           </svg>
         </article>
-        {/* <MainStduentAssignment /> */}
-        {/* <MainAddAssignment /> */}
-        {/* <MainSubjectAssginment /> */}
-        {/* <MainSolveAssignment /> */}
-        {/* <MainAddPost /> */}
-        {/* <MainBlockUnblock /> */}
       </main>
     </>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isRTL: state.isRTL,
-  symbol: state.symbol
+  symbol: state.symbol,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageCode);

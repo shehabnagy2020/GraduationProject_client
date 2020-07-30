@@ -100,6 +100,10 @@
   border-radius: 10px;
   box-shadow: $boxShadow;
 
+  &.dark {
+    background-color: $dark;
+  }
+
   &.m-0 {
     margin: 0;
   }

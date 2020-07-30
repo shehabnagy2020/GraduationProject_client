@@ -1,69 +1,128 @@
 /* doctor_assignment page: */
 
-.assignment {
-    display: flex;
-    background: $secondary;
-    min-height: 100vh;
-    padding-top: 13vh;
+.assignment-container {
+  display: flex;
+  background: $secondary;
+  overflow: hidden;
+
+  &.full {
+    .assignment-left-no {
+      width: 100%;
+      padding: 20px;
+    }
+    .assignment-right-name {
+      width: 0;
+      padding: 0;
+    }
+  }
+
+  &.active {
+    .assignment-left-no {
+      width: 100%;
+      padding: 20px;
+    }
+    .assignment-right-name {
+      width: 0;
+      padding: 0;
+    }
+    @media (min-width: 800px) {
+      .assignment-left-no {
+        width: 30%;
+        padding: 20px;
+      }
+      .assignment-right-name {
+        width: 70%;
+        padding: 20px;
+      }
+    }
+  }
 }
 
 .title {
-    padding: 25px 15px 0;
-    text-transform: capitalize;
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-.btn-container {
-    padding: 3px 10px 5px;
-    text-align: end;
-}
-
-.close-btn {
-    color: $danger;
-    font-size: 1rem;
-    border: 0;
-    background: none;
-
+  text-transform: capitalize;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
 }
 
 .assignment-left-no {
-    display: flex;
-    flex-flow: column;
-    border: 1px solid rgba(221, 221, 221, 0.514);
-    width: 40%;
-    color: #ddd;
-    /* padding: 0 20px; */
+  display: flex;
+  flex-flow: column;
+  color: #ddd;
+  overflow: hidden;
+  padding: 0;
+  width: 0;
+  transition: 0.3s all;
 }
 
 .assignment-no {
-    display: flex;
-    border: 1px solid rgba(221, 221, 221, 0.514);
-    margin: 15px 0 0 0;
-    background: $dark;
-    justify-content: center;
-    text-align: center;
-    flex-flow: column;
+  display: flex;
+  border: 1px solid rgba(221, 221, 221, 0.514);
+  margin: 15px 0 0 0;
+  background: $dark;
+  justify-content: center;
+  text-align: center;
+  flex-flow: column;
+  cursor: pointer;
+
+  &.active {
+    background: $primary;
+  }
+
+  .btn-container {
+    padding: 5px 10px;
+    text-align: end;
+  }
+
+  .close-btn {
+    color: $danger;
+    font-size: 1.2rem;
+    border: 0;
+    background: none;
+  }
+  .edit-btn {
+    color: #fff;
+    font-size: 1.2rem;
+    border: 0;
+    background: none;
+  }
+
+  .assignment-text {
+    margin: 0 0 5px 0;
+    color: #fff;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
 }
 
 .assignment-right-name {
-    display: flex;
-    border: 1px solid rgba(221, 221, 221, 0.514);
-    flex-grow: 1;
-    flex-flow: column;
-    background: $dark;
-    color: #ddd;
-    padding: 0 20px;
+  overflow: hidden;
+  display: flex;
+  flex-flow: column;
+  background: $dark;
+  color: #ddd;
+  overflow: hidden;
+  width: 100%;
+  padding: 20px;
+  transition: 0.3s all;
 }
 
 .assignment-name {
-    display: flex;
-    border: 1px solid rgba(221, 221, 221, 0.514);
-    margin: 15px 0;
-    padding: 40px 0;
-    background: $secondary;
-    justify-content: center;
-    text-align: center;
-    flex-flow: column;
+  display: flex;
+  border: 1px solid rgba(221, 221, 221, 0.514);
+  margin: 15px 0;
+  padding: 30px 0;
+  background: $secondary;
+  justify-content: center;
+  text-align: center;
+  flex-flow: column;
+
+  .assignment-solver-text {
+    color: #fff;
+    margin: 0 0 5px 0;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
 }

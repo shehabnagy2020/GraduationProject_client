@@ -14,6 +14,9 @@ export default (institute_id) => async (dispatch, getState) => {
       url: "/department/getByInstitute",
       method: "GET",
       params: { institute_id },
+      headers: {
+        Authorization: `Bearer ${getState().userDetails.token}`,
+      },
     });
 
     dispatch({
