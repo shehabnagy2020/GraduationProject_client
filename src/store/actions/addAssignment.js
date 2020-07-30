@@ -46,6 +46,16 @@ export default (obj, setState) => async (dispatch, getState) => {
       files_name: [],
     });
     toast.success("Assignment added successfully");
+    setState({
+      content: "",
+      course_code: "",
+      total_mark: "",
+      deadline: "",
+      files: [],
+      files_name: [],
+    });
+    $("#editAssignmentModal").modal("hide");
+
     await dispatch(getAssignments(1));
   } catch (error) {
     const errRes = error.response;
@@ -58,6 +68,6 @@ export default (obj, setState) => async (dispatch, getState) => {
       type: REDUX_PAGE_LOADERS,
       value: { addAssignment: true },
     });
-    toast.success("Failed to add assignment");
+    toast.error("Failed to add assignment");
   }
 };
