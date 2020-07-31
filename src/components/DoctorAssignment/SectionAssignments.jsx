@@ -3,7 +3,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getAssignments from "../../store/actions/getAssignments";
 import getAssignmentsSolvers from "../../store/actions/getAssignmentsSolvers";
-import { REDUX_ACTIVE_ASSIGNMENT } from "../../store/CONSTANTS";
+import {
+  REDUX_ACTIVE_ASSIGNMENT,
+  REDUX_PAGE_HELPERS,
+} from "../../store/CONSTANTS";
 import InfiniteScroll from "react-infinite-scroll-component";
 import moment from "moment";
 import { Scrollbars } from "react-custom-scrollbars";
@@ -23,6 +26,17 @@ const SectionAssignments = () => {
 
   useEffect(() => {
     dispatch(getAssignments(1));
+
+    return (_) => {
+      dispatch({
+        type: REDUX_PAGE_HELPERS,
+        value: { assignmentsPage: 1 },
+      });
+      dispatch({
+        type: REDUX_ACTIVE_ASSIGNMENT,
+        value: {},
+      });
+    };
   }, []);
 
   const fetchData = (_) => {
@@ -30,7 +44,10 @@ const SectionAssignments = () => {
   };
 
   const handleChoose = (item) => {
-    dispatch({ type: REDUX_ACTIVE_ASSIGNMENT, value: item });
+    dispatch({
+      type: REDUX_ACTIVE_ASSIGNMENT,
+      value: item,
+    });
     dispatch(getAssignmentsSolvers(1, item.id));
   };
 

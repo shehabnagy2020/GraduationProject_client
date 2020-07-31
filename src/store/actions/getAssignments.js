@@ -16,10 +16,14 @@ export default (page) => async (dispatch, getState) => {
     type: REDUX_PAGE_HELPERS,
     value: { assignmentsPage: page + 1 },
   });
+  let isStudent = getState().userDetails.role_type === "student";
+
   try {
     const res = await Axios({
       baseURL: API,
-      url: "/assignmentForTeachStuff/getAll",
+      url: `/${
+        isStudent ? "assignmentForStudents" : "assignmentForTeachStuff"
+      }/getAll`,
       method: "GET",
       params: { page },
       headers: {
@@ -34,8 +38,14 @@ export default (page) => async (dispatch, getState) => {
         hasMore = res.data.length < 5 ? false : true;
         data = [...res.data];
 
-        dispatch({ type: REDUX_ACTIVE_ASSIGNMENT, value: res.data[0] });
-        dispatch(getAssignmentsSolvers(1, res.data[0].id));
+        if (!isStudent) {
+          if (activeAssignment.fromHome)
+            dispatch(getAssignmentsSolvers(1, activeAssignment.id));
+          else {
+            dispatch({ type: REDUX_ACTIVE_ASSIGNMENT, value: res.data[0] });
+            dispatch(getAssignmentsSolvers(1, res.data[0].id));
+          }
+        }
       } else {
         hasMore = false;
         data = [];

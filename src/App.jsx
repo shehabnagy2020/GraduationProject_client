@@ -14,6 +14,7 @@ import AddHelp from "./components/Modals/AddHelp/AddHelp";
 import PageSavedPosts from "./components/SavedPosts/PageSavedPosts";
 import PageProfile from "./components/Profile/PageProfile";
 import getCourse from "./store/actions/getCourse";
+import getRecentAssignments from "./store/actions/getRecentAssignments";
 
 function App({}) {
   const { pageLoaders, userDetails, isLogged } = useSelector((state) => state);
@@ -34,16 +35,18 @@ function App({}) {
   }, []);
 
   useEffect(() => {
-    if (userDetails.code) {
+    if (isLogged && userDetails.token) {
       dispatch(getCourse());
+      dispatch(getRecentAssignments());
     }
-  }, [userDetails]);
+  }, [userDetails, userDetails.token]);
 
   return (
     <>
       {(pageLoaders.getDepartment ||
         pageLoaders.getGradeYear ||
         pageLoaders.checkToken ||
+        pageLoaders.getRecentAssignments ||
         pageLoaders.getCourse ||
         pageLoaders.logout ||
         pageLoaders.getInstitute) && <PageSpinner />}

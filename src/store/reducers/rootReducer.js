@@ -19,6 +19,7 @@ import {
   REDUX_SOLVERS,
   REDUX_STUDENT_ASSIGNMENT,
   REDUX_ACTIVE_ASSIGNMENT,
+  REDUX_RECENT_ASSIGNMENTS,
 } from "../CONSTANTS";
 
 const initState = {
@@ -40,6 +41,7 @@ const initState = {
   helpArr: [],
   blockData: {},
   assignmentsArr: { hasMore: true, data: [] },
+  recentAssignmentsArr: [],
   solversArr: { hasMore: true, data: [] },
   assignmentData: {},
 };
@@ -152,6 +154,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         activeAssignment: action.value,
+      };
+    case REDUX_RECENT_ASSIGNMENTS:
+      return {
+        ...state,
+        recentAssignmentsArr: action.value,
       };
 
     default:

@@ -13781,6 +13781,10 @@ h3 {
 .empty-container.dark {
   background: #343b45;
 }
+.empty-container.without {
+  background: none;
+  border: 0;
+}
 .empty-container p {
   text-transform: capitalize;
   color: #fff;
@@ -13788,6 +13792,9 @@ h3 {
   font-weight: bold;
   margin: 0;
   text-align: center;
+}
+.empty-container p.small {
+  font-size: 1rem;
 }
 
 @media (min-width: 1200px) {
@@ -14519,20 +14526,28 @@ body {
   flex-flow: column;
   margin: 20px 0 0 0;
 }
-
 .home-recent-assignments-container h3 {
   font-size: 1.7rem;
   font-weight: bold;
   color: #fff;
-  margin: 0 0 10px 0;
+  margin: 0 0 15px 0;
 }
-
-.home-recent-assignments-container a {
+.home-recent-assignments-container .home-recent-assignments-item {
   font-size: 1.2rem;
   font-weight: normal;
   color: #fff;
-  margin: 0 0 10px 0;
-  text-decoration: none;
+  margin: 0 0 7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: 0;
+}
+.home-recent-assignments-container .home-recent-assignments-item:last-of-type {
+  margin: 0;
+}
+.home-recent-assignments-container .home-recent-assignments-item .date {
+  font-size: 0.9rem;
 }
 
 .home-courses-container {
