@@ -1,5 +1,10 @@
 import Axios from "axios";
-import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
+import {
+  API,
+  REDUX_PAGE_LOADERS,
+  REDUX_PAGE_ERRORS,
+  REDUX_CLEAR,
+} from "../CONSTANTS";
 import getBlockData from "./getBlockData";
 import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
@@ -25,14 +30,19 @@ export default (obj, setState) => async (dispatch, getState) => {
       student_code: "",
       block_period: "",
     });
-    console.log(setState);
     toast.success(res.data.message);
     // dispatch(getBlockData(obj));
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleBlock: true } });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleBlock: false } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleBlock: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleBlock: false } });
     toast.error("Failed to do the operation, try again");
   }
 };

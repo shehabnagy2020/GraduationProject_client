@@ -5,6 +5,9 @@ import {
   REDUX_PAGE_ERRORS,
   REDUX_COURSE,
   REDUX_ACTIVE_COURSE,
+  REDUX_USER,
+  REDUX_IS_LOGED,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import getPost from "./getPost";
 
@@ -40,9 +43,15 @@ export default () => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getCourse: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourse: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { getCourse: true } });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourse: true } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { getCourse: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourse: true } });
   }
 };

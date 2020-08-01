@@ -19,6 +19,7 @@ const PageHome = () => {
     <>
       {(pageLoaders.getPost ||
         pageLoaders.deletePost ||
+        pageLoaders.downloadZIP ||
         pageLoaders.toggleSavePost) && <PageSpinner />}
       <Header />
       <div className="container">

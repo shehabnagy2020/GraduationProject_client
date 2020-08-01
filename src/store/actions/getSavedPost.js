@@ -6,6 +6,7 @@ import {
   REDUX_POST,
   REDUX_PAGE_HELPERS,
   REDUX_SAVED_POSTS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (page) => async (dispatch, getState) => {
@@ -46,9 +47,15 @@ export default (page) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getSavedPost: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getSavedPost: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { getSavedPost: true } });
-    // dispatch({ type: REDUX_PAGE_LOADERS, value: { getSavedPost: false } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { getSavedPost: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getSavedPost: true } });
   }
 };

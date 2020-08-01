@@ -46,7 +46,7 @@ const SectionAssignments = () => {
   const handleChoose = (item) => {
     dispatch({
       type: REDUX_ACTIVE_ASSIGNMENT,
-      value: item,
+      value: { ...item, fromAssignments: true },
     });
     dispatch(getAssignmentsSolvers(1, item.id));
   };

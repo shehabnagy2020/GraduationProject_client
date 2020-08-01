@@ -5,6 +5,7 @@ import {
   API,
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
@@ -42,6 +43,12 @@ export default (user, setState, setErrorState) => async (
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { changePassword: 1 } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { changePassword: false } });
     if (errRes && errRes.data) {

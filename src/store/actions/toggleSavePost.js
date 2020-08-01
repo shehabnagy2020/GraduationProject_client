@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_DEPARTMENT,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import getSavedPost from "./getSavedPost";
 import getPost from "./getPost";
@@ -25,9 +26,15 @@ export default (post_id, type) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: true } });
-    // dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: false } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: false } });
   }
 };

@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_HELP,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (_) => async (dispatch, getState) => {
@@ -18,7 +19,6 @@ export default (_) => async (dispatch, getState) => {
       },
     });
 
-    console.log(res);
     dispatch({
       type: REDUX_HELP,
       value: res.data,
@@ -26,9 +26,15 @@ export default (_) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getHelp: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getHelp: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { getHelp: true } });
-    // dispatch({ type: REDUX_PAGE_LOADERS, value: { getHelp: false } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { getHelp: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getHelp: true } });
   }
 };

@@ -5,6 +5,7 @@ import {
   REDUX_PAGE_ERRORS,
   REDUX_USER,
   REDUX_IS_LOGED,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (_) => async (dispatch, getState) => {
@@ -30,18 +31,9 @@ export default (_) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_LOADERS, value: { checkToken: false } });
     const errRes = error.response;
     console.log(errRes);
-    if (errRes && errRes.data) {
-      if (
-        errRes.data.message === "session expired" ||
-        errRes.data.message === "Unauthorized user"
-      )
-        dispatch({
-          type: REDUX_USER,
-          value: {},
-        });
+    if (errRes && errRes.status === 401) {
       dispatch({
-        type: REDUX_IS_LOGED,
-        value: false,
+        type: REDUX_CLEAR,
       });
       return;
     } else dispatch({ type: REDUX_PAGE_LOADERS, value: { checkToken: true } });

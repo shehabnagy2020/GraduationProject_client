@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_BLOCK_DATA,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (obj) => async (dispatch, getState) => {
@@ -22,9 +23,15 @@ export default (obj) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getBlockData: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getBlockData: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { getBlockData: true } });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getBlockData: false } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { getBlockData: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getBlockData: false } });
   }
 };

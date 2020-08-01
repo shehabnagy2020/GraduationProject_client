@@ -30,7 +30,7 @@ function App({}) {
         .setAttribute("href", "styles/indexRTL.css");
     }
     if (isLogged) {
-      dispatch(checkToken());
+      // dispatch(checkToken());
     }
   }, []);
 
@@ -39,7 +39,7 @@ function App({}) {
       dispatch(getCourse());
       dispatch(getRecentAssignments());
     }
-  }, [userDetails, userDetails.token]);
+  }, [isLogged, userDetails, userDetails.token]);
 
   return (
     <>

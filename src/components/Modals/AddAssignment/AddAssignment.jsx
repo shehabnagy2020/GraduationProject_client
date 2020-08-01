@@ -93,7 +93,12 @@ const AddAssignment = () => {
             </div>
             <div className="modal-form-control label-inline">
               <label>Course</label>
-              <select id="course_code" onChange={handleChange} required>
+              <select
+                id="course_code"
+                onChange={handleChange}
+                value={state.course_code}
+                required
+              >
                 <option value="">Choose Course</option>
                 {coursesArr.map((item, index) => (
                   <option value={item.code}>{item.name}</option>
@@ -108,6 +113,7 @@ const AddAssignment = () => {
                 placeholder="Enter mark"
                 onChange={handleChange}
                 required
+                value={state.total_mark}
               />
             </div>
             <div className="modal-form-control label-inline">
@@ -117,6 +123,7 @@ const AddAssignment = () => {
                 id="deadline"
                 placeholder="Choose Date"
                 onChange={handleChange}
+                value={state.deadline}
                 required
               />
             </div>

@@ -20,6 +20,7 @@ import {
   REDUX_STUDENT_ASSIGNMENT,
   REDUX_ACTIVE_ASSIGNMENT,
   REDUX_RECENT_ASSIGNMENTS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 const initState = {
@@ -159,6 +160,10 @@ export default (state = initState, action) => {
       return {
         ...state,
         recentAssignmentsArr: action.value,
+      };
+    case REDUX_CLEAR:
+      return {
+        ...initState,
       };
 
     default:

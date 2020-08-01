@@ -6,6 +6,7 @@ import {
   REDUX_DEPARTMENT,
   REDUX_SOLVERS,
   REDUX_PAGE_HELPERS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (page, assignment_id) => async (dispatch, getState) => {
@@ -60,6 +61,12 @@ export default (page, assignment_id) => async (dispatch, getState) => {
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({
       type: REDUX_PAGE_ERRORS,
       value: { getAssignmentsSolvers: true },

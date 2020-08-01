@@ -5,6 +5,7 @@ import {
   REDUX_PAGE_ERRORS,
   REDUX_DEPARTMENT,
   REDUX_SOLVERS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import { convertToFormData } from "../../utils/helper";
 import getAssignments from "./getAssignments";
@@ -39,13 +40,19 @@ export default (id) => async (dispatch, getState) => {
     await dispatch(getAssignments(1));
   } catch (error) {
     const errRes = error.response;
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({
       type: REDUX_PAGE_ERRORS,
       value: { deleteAssignment: true },
     });
     dispatch({
       type: REDUX_PAGE_LOADERS,
-      value: { deleteAssignment: true },
+      value: { deleteAssignment: false },
     });
     toast.success("Faild to delete assignment");
   }

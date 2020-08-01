@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_HELP,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
@@ -33,10 +34,16 @@ export default (obj, setState) => async (dispatch, getState) => {
     setState({ content: "", files: [], files_name: [] });
     await dispatch(getPost(1));
   } catch (error) {
+    const errRes = error.respo;
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    console.log(errRes);
     dispatch({ type: REDUX_PAGE_ERRORS, value: { addPost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPost: false } });
-    const errRes = error.response;
     toast.error("Failed to add new post");
-    console.log(errRes);
   }
 };

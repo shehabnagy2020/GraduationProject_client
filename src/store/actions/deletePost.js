@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_HELP,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
@@ -28,10 +29,16 @@ export default (id) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deletePost: false } });
     await dispatch(getPost(1));
   } catch (error) {
+    const errRes = error.response;
+    console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deletePost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deletePost: false } });
-    const errRes = error.response;
     toast.error("Failed to delete post");
-    console.log(errRes);
   }
 };

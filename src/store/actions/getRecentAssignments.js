@@ -8,11 +8,13 @@ import {
   REDUX_PAGE_HELPERS,
   REDUX_ACTIVE_ASSIGNMENT,
   REDUX_RECENT_ASSIGNMENTS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default () => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getRecentAssignments: true } });
   let isStudent = getState().userDetails.role_type === "student";
+  let obj = { avialability_type: 0 };
   try {
     const res = await Axios({
       baseURL: API,
@@ -20,7 +22,7 @@ export default () => async (dispatch, getState) => {
         isStudent ? "assignmentForStudents" : "assignmentForTeachStuff"
       }/getAll`,
       method: "GET",
-      params: { page: 1 },
+      params: { page: 1, ...obj },
       headers: {
         Authorization: `Bearer ${getState().userDetails.token}`,
       },
@@ -39,6 +41,13 @@ export default () => async (dispatch, getState) => {
     });
   } catch (error) {
     const errRes = error.response;
+    console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({
       type: REDUX_PAGE_ERRORS,
       value: { getRecentAssignments: true },

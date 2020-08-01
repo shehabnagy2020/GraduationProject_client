@@ -6,6 +6,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_IS_LOGED,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (user) => async (dispatch, getState) => {
@@ -30,6 +31,14 @@ export default (user) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { logout: 0 } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { logout: false } });
   } catch (error) {
+    const errRes = error.response;
+    console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { logout: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { logout: true } });
   }

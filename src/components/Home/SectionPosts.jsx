@@ -6,6 +6,7 @@ import moment from "moment";
 import getPost from "../../store/actions/getPost";
 import InfiniteScroll from "react-infinite-scroll-component";
 import deletePost from "../../store/actions/deletePost";
+import downloadZIP from "../../store/actions/downloadZIP";
 import * as $ from "jquery";
 import "bootstrap";
 import EditPost from "../Modals/EditPost/EditPost";
@@ -119,6 +120,15 @@ const SectionPosts = () => {
                   <i className="fa fa-comment"></i>
                   comment
                 </button>
+                {item.files && item.files.length >= 1 && (
+                  <button
+                    className={`post-btn ${item.is_saved ? "active" : ""}`}
+                    onClick={(_) => dispatch(downloadZIP(item.files))}
+                  >
+                    <i className="fa fa-save"></i>
+                    download
+                  </button>
+                )}
                 <button
                   className={`post-btn ${item.is_saved ? "active" : ""}`}
                   onClick={(_) => dispatch(toggleSavePost(item.id, "post"))}

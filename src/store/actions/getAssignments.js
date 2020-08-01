@@ -7,6 +7,7 @@ import {
   REDUX_ASSIGNMENTS,
   REDUX_PAGE_HELPERS,
   REDUX_ACTIVE_ASSIGNMENT,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import getAssignmentsSolvers from "./getAssignmentsSolvers";
 
@@ -39,7 +40,7 @@ export default (page) => async (dispatch, getState) => {
         data = [...res.data];
 
         if (!isStudent) {
-          if (activeAssignment.fromHome)
+          if (activeAssignment.fromHome || activeAssignment.fromAssignments)
             dispatch(getAssignmentsSolvers(1, activeAssignment.id));
           else {
             dispatch({ type: REDUX_ACTIVE_ASSIGNMENT, value: res.data[0] });
@@ -70,6 +71,13 @@ export default (page) => async (dispatch, getState) => {
     });
   } catch (error) {
     const errRes = error.response;
+    console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getAssignments: true } });
     dispatch({
       type: REDUX_PAGE_LOADERS,

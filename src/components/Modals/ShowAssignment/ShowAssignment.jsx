@@ -41,6 +41,8 @@ const ShowAssignment = ({ solve }) => {
     }
   }, [solve]);
 
+  console.log(solve);
+
   return (
     <div
       className="modal fade"
@@ -58,12 +60,7 @@ const ShowAssignment = ({ solve }) => {
           </div>
           <div className="modal-body">
             <div className="modal-form-control">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis
-                ex soluta optio rerum, eligendi alias voluptatum quas
-                repellendus. Modi aliquid voluptate harum magni iste sed quaerat
-                mollitia, accusantium obcaecati nam.
-              </p>
+              <p>{solve.solve_content}</p>
             </div>
             <div className="model-file-container">
               {solve.files &&

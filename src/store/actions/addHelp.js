@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_HELP,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
@@ -37,6 +38,12 @@ export default (obj, setState) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addHelp: false } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     if (errRes && errRes.data) {
       if (errRes.data.message === "help requests maximum number reached")
         toast.error("help requests maximum number reached");

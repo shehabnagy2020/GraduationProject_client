@@ -5,6 +5,7 @@ import {
   REDUX_PAGE_ERRORS,
   REDUX_DEPARTMENT,
   REDUX_SOLVERS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 import getAssignmentsSolvers from "./getAssignmentsSolvers";
 import * as $ from "jquery";
@@ -41,6 +42,12 @@ export default (obj, setMark) => async (dispatch, getState) => {
     await dispatch(getAssignmentsSolvers(1, obj.assignment_id));
   } catch (error) {
     const errRes = error.response;
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
     dispatch({
       type: REDUX_PAGE_ERRORS,
       value: { assignMark: true },

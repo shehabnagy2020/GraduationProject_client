@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_COURSE_STUDENTS,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (course_code) => async (dispatch, getState) => {
@@ -25,9 +26,15 @@ export default (course_code) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getCourseStudents: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourseStudents: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { getCourseStudents: true } });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourseStudents: true } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { getCourseStudents: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourseStudents: true } });
   }
 };

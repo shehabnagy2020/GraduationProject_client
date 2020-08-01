@@ -4,6 +4,7 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_ALL_COURSES,
+  REDUX_CLEAR,
 } from "../CONSTANTS";
 
 export default (_) => async (dispatch, getState) => {
@@ -24,9 +25,15 @@ export default (_) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getAllCourses: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { getAllCourses: false } });
   } catch (error) {
-    dispatch({ type: REDUX_PAGE_ERRORS, value: { getAllCourses: true } });
-    dispatch({ type: REDUX_PAGE_LOADERS, value: { getAllCourses: true } });
     const errRes = error.response;
     console.log(errRes);
+    if (errRes && errRes.status === 401) {
+      dispatch({
+        type: REDUX_CLEAR,
+      });
+      return;
+    }
+    dispatch({ type: REDUX_PAGE_ERRORS, value: { getAllCourses: true } });
+    dispatch({ type: REDUX_PAGE_LOADERS, value: { getAllCourses: true } });
   }
 };
