@@ -147,7 +147,7 @@ body {
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  max-width: 150px;
+  min-width: 130px;
 
   &:last-of-type {
     margin: 0;

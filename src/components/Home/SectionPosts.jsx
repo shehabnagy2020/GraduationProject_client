@@ -137,7 +137,7 @@ const SectionPosts = () => {
                   save
                 </button>
               </div>
-              <div className="comment-container">
+              {/* <div className="comment-container">
                 <div className="comment-list">
                   <div className="comment-item">
                     <div className="pic">st</div>
@@ -185,7 +185,7 @@ const SectionPosts = () => {
                   </button>
                 </form>
                 <div className="comment-list"></div>
-              </div>
+              </div> */}
             </div>
           ))
         ) : (
