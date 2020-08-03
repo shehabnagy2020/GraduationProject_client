@@ -1,8 +1,8 @@
 // export const SOCKET_API = "http://localhost:8000";
-// export const API = "http://localhost:8000/api";
-export const API = "https://api.hicit-learning.me/api";
-// export const CDN = "http://localhost:8000";
-export const CDN = "https://api.hicit-learning.me";
+export const API = "http://localhost:8000/api";
+// export const API = "https://api.hicit-learning.me/api";
+export const CDN = "http://localhost:8000";
+// export const CDN = "https://api.hicit-learning.me";
 
 ///// REDUX /////
 export const REDUX_USER = "REDUX_USER";
@@ -27,6 +27,8 @@ export const REDUX_ACTIVE_ASSIGNMENT = "REDUX_ACTIVE_ASSIGNMENT";
 export const REDUX_SOLVERS = "REDUX_SOLVERS";
 export const REDUX_STUDENT_ASSIGNMENT = "REDUX_STUDENT_ASSIGNMENT";
 export const REDUX_CLEAR = "REDUX_CLEAR";
+export const REDUX_SOCKET = "REDUX_SOCKET";
+export const REDUX_NOTIFICATION = "REDUX_NOTIFICATION";
 
 ///// VALIDATION /////
 export const VALIDATION = {

@@ -15,6 +15,8 @@ import PageSavedPosts from "./components/SavedPosts/PageSavedPosts";
 import PageProfile from "./components/Profile/PageProfile";
 import getCourse from "./store/actions/getCourse";
 import getRecentAssignments from "./store/actions/getRecentAssignments";
+import socketIOClient from "socket.io-client";
+import { CDN, REDUX_SOCKET, REDUX_NOTIFICATION } from "./store/CONSTANTS";
 
 function App({}) {
   const { pageLoaders, userDetails, isLogged } = useSelector((state) => state);
@@ -30,7 +32,7 @@ function App({}) {
         .setAttribute("href", "styles/indexRTL.css");
     }
     if (isLogged) {
-      // dispatch(checkToken());
+      dispatch(checkToken());
     }
   }, []);
 
@@ -39,7 +41,18 @@ function App({}) {
       dispatch(getCourse());
       dispatch(getRecentAssignments());
     }
-  }, [isLogged, userDetails, userDetails.token]);
+  }, [isLogged, userDetails]);
+
+  useEffect(() => {
+    const socket = socketIOClient(CDN);
+    socket.on("NOTIFICATION", (data) => {
+      dispatch({ type: REDUX_NOTIFICATION, value: data });
+    });
+    dispatch({ type: REDUX_SOCKET, value: socket });
+    return (_) => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <>
@@ -65,7 +78,7 @@ function App({}) {
         )}
 
         {isLogged && userDetails.role_type === "student" && (
-          <Route exact path="/assignment" component={PageStudentAssignment} />
+          <Route exact path="/assignments" component={PageStudentAssignment} />
         )}
         {isLogged && <Route exact path="/profile" component={PageProfile} />}
 

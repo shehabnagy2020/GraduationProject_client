@@ -6,6 +6,7 @@ import getAssignmentsSolvers from "../../store/actions/getAssignmentsSolvers";
 import {
   REDUX_ACTIVE_ASSIGNMENT,
   REDUX_PAGE_HELPERS,
+  REDUX_ASSIGNMENTS,
 } from "../../store/CONSTANTS";
 import InfiniteScroll from "react-infinite-scroll-component";
 import moment from "moment";
@@ -35,6 +36,10 @@ const SectionAssignments = () => {
       dispatch({
         type: REDUX_ACTIVE_ASSIGNMENT,
         value: {},
+      });
+      dispatch({
+        type: REDUX_ASSIGNMENTS,
+        value: { hasMore: true, data: [] },
       });
     };
   }, []);

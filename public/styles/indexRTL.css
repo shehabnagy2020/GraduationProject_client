@@ -13922,6 +13922,14 @@ h3 {
   color: #fff;
 }
 
+.spererator-line {
+  width: 75%;
+  height: 1px;
+  background: #9c9c9c;
+  margin: 10px auto 15px;
+  border-radius: 20px;
+}
+
 .modal .modal-content {
   background: #343b45;
 }
@@ -13968,7 +13976,7 @@ h3 {
   margin: 0;
 }
 .modal .modal-form-control.normal-width {
-  width: 150px;
+  width: 170px;
 }
 .modal .modal-form-control.label-inline {
   display: flex;
@@ -14388,42 +14396,92 @@ select option {
   margin: 0 15px;
 }
 
-.all_assign {
-  display: flex;
-  border: 1px solid rgba(221, 221, 221, 0.363);
-  color: #ddd;
-  background-color: #343b45;
-  /* width: 100%; */
-  padding: 30px 80px;
-  flex-flow: column;
-  flex-grow: 1;
-  justify-content: center;
-  padding-top: 13vh;
+.notification-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 1.5rem 0 0;
 }
 
-.assign {
+.notification-item {
   display: flex;
-  position: relative;
-  border: 1px solid rgba(221, 221, 221, 0.363);
-  /* width: 30%; */
-  padding: 40px 0;
-  margin: 20px 10px;
-  background-color: #3e4851;
-  justify-content: center;
-  text-align: center;
   flex-flow: column;
 }
+.notification-item .notification-title {
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: capitalize;
+  color: #111;
+}
+.notification-item .notification-body {
+  font-size: 0.9rem;
+  color: #555;
+}
 
-.solve {
-  border: 1px solid rgba(221, 221, 221, 0.363);
+.assignments-students-container .assignments-header {
   width: 100%;
-  height: 20%;
-  position: absolute;
-  background-color: #343b45;
-  color: #ddd;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 10px 0;
+}
+.assignments-students-container .header-part-one {
+  flex-grow: 1;
+}
+.assignments-students-container .header-part-one div {
+  height: 2px;
+  margin-top: 10px;
+  background: #fff;
+}
+.assignments-students-container .header-btn {
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  transition: 0.3s all;
+}
+.assignments-students-container .header-btn.active div {
+  background: #f3c623;
+}
+.assignments-students-container .header-btn span {
+  margin: 0 5px;
+}
+.assignments-students-container .header-btn div {
+  height: 3px;
+  margin-top: 8px;
+  background: #fff;
+}
+.assignments-students-container .assignments-students-item {
+  display: flex;
+  border: 1px solid rgba(221, 221, 221, 0.514);
+  margin: 15px 0;
+  padding: 30px 0 0;
+  background: #3e4851;
   justify-content: center;
-  bottom: 0px;
   text-align: center;
+  flex-flow: column;
+}
+.assignments-students-container .assignments-students-item.without {
+  padding: 30px 0;
+}
+.assignments-students-container .assignments-students-item button {
+  background: #343b45;
+  border: 0;
+  color: #fff;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  padding: 5px 0;
+  transition: 0.3s all;
+  margin: 10px 0 0 0;
+}
+.assignments-students-container .assignments-students-item button:hover {
+  background: #f3c623;
+}
+.assignments-students-container .assignments-students-item p {
+  color: #fff;
+  font-size: 1rem;
+  text-transform: capitalize;
+  margin: 0 0 5px 0;
 }
 
 * {

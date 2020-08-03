@@ -11,13 +11,15 @@ import {
 } from "../CONSTANTS";
 import getAssignmentsSolvers from "./getAssignmentsSolvers";
 
-export default (page) => async (dispatch, getState) => {
+export default (page, avialability_type) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getAssignments: true } });
   dispatch({
     type: REDUX_PAGE_HELPERS,
     value: { assignmentsPage: page + 1 },
   });
   let isStudent = getState().userDetails.role_type === "student";
+  let params = { page };
+  if (isStudent) params = { ...params, avialability_type };
 
   try {
     const res = await Axios({
@@ -26,7 +28,7 @@ export default (page) => async (dispatch, getState) => {
         isStudent ? "assignmentForStudents" : "assignmentForTeachStuff"
       }/getAll`,
       method: "GET",
-      params: { page },
+      params: { ...params },
       headers: {
         Authorization: `Bearer ${getState().userDetails.token}`,
       },

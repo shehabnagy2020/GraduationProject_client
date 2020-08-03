@@ -27,6 +27,7 @@ export default () => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().userDetails.token}`,
       },
     });
+    console.log(res.data);
     dispatch({
       type: REDUX_RECENT_ASSIGNMENTS,
       value: res.data,

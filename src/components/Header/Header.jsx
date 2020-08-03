@@ -10,9 +10,12 @@ import ShowHelp from "../Modals/ShowHelp/ShowHelp";
 import logout from "../../store/actions/logout";
 import { Link } from "react-router-dom";
 import BlockUnblock from "../Modals/BlockUnblock/BlockUnblock";
+import { CDN } from "../../store/CONSTANTS";
 
 const Header = ({ noMargin, noSearch, assignmentMenu }) => {
-  const { userDetails, helpArr, pageLoaders } = useSelector((state) => state);
+  const { userDetails, helpArr, pageLoaders, notificationArr } = useSelector(
+    (state) => state
+  );
   const [helpItem, setHelpItem] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,6 +43,7 @@ const Header = ({ noMargin, noSearch, assignmentMenu }) => {
   const handleASsignmentMenu = (_) => {
     $("#assignment-container").toggleClass("active");
   };
+
   return (
     <header className={`header ${noMargin ? "mb-0" : ""}`}>
       <div className="header-col">
@@ -123,30 +127,32 @@ const Header = ({ noMargin, noSearch, assignmentMenu }) => {
           </div>
           <div className="header-list-item seperator"></div>
           <div className="header-list-item dropdown">
-            <button className="dropdown-toggle without" data-toggle="dropdown">
-              <i className="fa fa-bell" />
-            </button>
+            {notificationArr.length >= 1 ? (
+              <button
+                className="dropdown-toggle without"
+                data-toggle="dropdown"
+              >
+                <i className="fa fa-bell" />
+              </button>
+            ) : (
+              <button className="dropdown-toggle without">
+                <i className="fa fa-bell" />
+              </button>
+            )}
             <div className="dropdown-menu dropdown-menu-right size-400">
-              <div className="dropdown-item start">
-                <img src={LogoIMG} alt="" className="dropdown-img" />
-                <span>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Soluta vel adipisci quia quo quaerat, reiciendis autem
-                  praesentium fuga, quos fugit, porro laboriosam. Sed quos
-                  obcaecati blanditiis. Commodi esse suscipit dignissimos.
-                </span>
-              </div>
-              <div className="dropdown-item start">
-                <img src={LogoIMG} alt="" className="dropdown-img" />
-                <span>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Soluta vel adipisci quia quo quaerat, reiciendis autem
-                </span>
-              </div>
-              <div className="dropdown-item start">
-                <img src={LogoIMG} alt="" className="dropdown-img" />
-                <span>Lorem ipsum dolor sit,</span>
-              </div>
+              {notificationArr.map((item, index) => (
+                <div key={index} className="dropdown-item start">
+                  <img
+                    src={item.image ? `${CDN}/${item.image}` : LogoIMG}
+                    alt=""
+                    className="notification-img"
+                  />
+                  <div className="notification-item">
+                    <span className="notification-title">{item.title}</span>
+                    <span className="notification-body">{item.text}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

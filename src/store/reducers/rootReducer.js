@@ -17,10 +17,11 @@ import {
   REDUX_IS_LOGED,
   REDUX_ASSIGNMENTS,
   REDUX_SOLVERS,
-  REDUX_STUDENT_ASSIGNMENT,
+  REDUX_NOTIFICATION,
   REDUX_ACTIVE_ASSIGNMENT,
   REDUX_RECENT_ASSIGNMENTS,
   REDUX_CLEAR,
+  REDUX_SOCKET,
 } from "../CONSTANTS";
 
 const initState = {
@@ -37,6 +38,7 @@ const initState = {
   savedPostsArr: { data: [], hasMore: true },
   departmentArr: [],
   gradeYearArr: [],
+  notificationArr: [],
   activeCourse: {},
   activeAssignment: {},
   helpArr: [],
@@ -45,6 +47,7 @@ const initState = {
   recentAssignmentsArr: [],
   solversArr: { hasMore: true, data: [] },
   assignmentData: {},
+  socketObj: {},
 };
 
 export default (state = initState, action) => {
@@ -161,10 +164,24 @@ export default (state = initState, action) => {
         ...state,
         recentAssignmentsArr: action.value,
       };
-    case REDUX_CLEAR:
+    case REDUX_CLEAR: {
+      console.log("clear called");
       return {
         ...initState,
       };
+    }
+    case REDUX_SOCKET: {
+      return {
+        ...state,
+        socketObj: action.value,
+      };
+    }
+    case REDUX_NOTIFICATION: {
+      return {
+        ...state,
+        notificationArr: action.value,
+      };
+    }
 
     default:
       return { ...state };
