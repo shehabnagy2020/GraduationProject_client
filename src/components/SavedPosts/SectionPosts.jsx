@@ -36,7 +36,7 @@ const SectionPosts = () => {
           )}
         </InfiniteScroll>
       </Scrollbars>
-      <EditPost post={postItem} />
+      <EditPost post={postItem} isSavedPost={true} />
     </div>
   );
 };

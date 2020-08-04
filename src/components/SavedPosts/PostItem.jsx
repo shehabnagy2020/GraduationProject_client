@@ -67,7 +67,7 @@ const PostItem = ({ item, setPostItem }) => {
           ) : (
             <>
               {item.owner && item.owner.name && (
-                <div>{userDetails.name.substr(0, 2)}</div>
+                <div>{item.owner.name.substr(0, 2)}</div>
               )}
             </>
           )}
@@ -76,31 +76,30 @@ const PostItem = ({ item, setPostItem }) => {
           {item.owner && <h2>{item.owner.name}</h2>}
           <span>{moment(item.date).fromNow()}</span>
         </div>
-        {((userDetails.code === item.owner.code &&
-          userDetails.role_type == item.owner.role_type) ||
-          userDetails.role_type === "doctor") && (
-          <div className="post-menu">
-            <div className="dropdown">
-              <div className="dropdown-toggle without" data-toggle="dropdown">
-                <i className="fa fa-ellipsis-h"></i>
-              </div>
-              <div className="dropdown-menu">
-                <button
-                  className="dropdown-item"
-                  onClick={(_) => handleEditModal(item)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="dropdown-item"
-                  onClick={(_) => dispatch(deletePost(item.id))}
-                >
-                  Delete
-                </button>
+        {userDetails.code === item.owner.code &&
+          userDetails.role_type == item.owner.role_type && (
+            <div className="post-menu">
+              <div className="dropdown">
+                <div className="dropdown-toggle without" data-toggle="dropdown">
+                  <i className="fa fa-ellipsis-h"></i>
+                </div>
+                <div className="dropdown-menu">
+                  <button
+                    className="dropdown-item"
+                    onClick={(_) => handleEditModal(item)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="dropdown-item"
+                    onClick={(_) => dispatch(deletePost(item.id, true))}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
       <div className="post-body">
         <p>{item.content}</p>
@@ -121,10 +120,10 @@ const PostItem = ({ item, setPostItem }) => {
         </button>
         {item.files && item.files.length >= 1 && (
           <button
-            className={`post-btn ${item.is_saved ? "active" : ""}`}
+            className={`post-btn `}
             onClick={(_) => dispatch(downloadZIP(item.files))}
           >
-            <i className="fa fa-save"></i>
+            <i className="fa fa-download"></i>
             download
           </button>
         )}
@@ -160,17 +159,16 @@ const PostItem = ({ item, setPostItem }) => {
                     <p>{comment.content}</p>
                     <div className="content-footer">
                       <span>{moment(new Date(comment.date)).fromNow()}</span>
-                      {((userDetails.code === comment.owner.code &&
-                        userDetails.role_type == comment.owner.role_type) ||
-                        userDetails.role_type === "doctor") && (
-                        <button
-                          onClick={(_) =>
-                            dispatch(deleteComment(comment.id, item.id))
-                          }
-                        >
-                          <i className="fa fa-close"></i>
-                        </button>
-                      )}
+                      {userDetails.code === comment.owner.code &&
+                        userDetails.role_type == comment.owner.role_type && (
+                          <button
+                            onClick={(_) =>
+                              dispatch(deleteComment(comment.id, item.id))
+                            }
+                          >
+                            <i className="fa fa-close"></i>
+                          </button>
+                        )}
                     </div>
                   </div>
                 </div>

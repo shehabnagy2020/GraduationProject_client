@@ -17,6 +17,7 @@ import getPost from "../../store/actions/getPost";
 const PageHome = () => {
   const dispatch = useDispatch();
   const { pageLoaders, coursesArr } = useSelector((state) => state);
+
   useEffect(() => {
     dispatch(getRecentAssignments());
     return (_) => {
@@ -47,13 +48,15 @@ const PageHome = () => {
         pageLoaders.toggleSavePost) && <PageSpinner />}
       <Header isSearch={true} />
       <div className="container">
-        <button
-          className="add-post-btn"
-          data-toggle="modal"
-          data-target="#createPostModal"
-        >
-          <i className="fa fa-plus"></i>
-        </button>
+        {coursesArr.length >= 1 && (
+          <button
+            className="add-post-btn"
+            data-toggle="modal"
+            data-target="#createPostModal"
+          >
+            <i className="fa fa-plus"></i>
+          </button>
+        )}
         <div className="row">
           <div className="col-lg-4 d-none d-lg-block">
             <SectionInfo />

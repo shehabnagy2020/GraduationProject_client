@@ -29,15 +29,9 @@ function App({}) {
   );
   const dispatch = useDispatch();
   useEffect((_) => {
-    if (true) {
-      document
-        .getElementById("main-styles")
-        .setAttribute("href", "styles/indexLTR.css");
-    } else {
-      document
-        .getElementById("main-styles")
-        .setAttribute("href", "styles/indexRTL.css");
-    }
+    document
+      .getElementById("main-styles")
+      .setAttribute("href", "styles/indexLTR.css");
     if (isLogged) {
       dispatch(checkToken());
     }

@@ -10,8 +10,9 @@ import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 import getPost from "./getPost";
+import getSavedPost from "./getSavedPost";
 
-export default (id) => async (dispatch, getState) => {
+export default (id, isSavedPost) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { deletePost: true } });
   try {
     const res = await Axios({
@@ -27,7 +28,8 @@ export default (id) => async (dispatch, getState) => {
     toast.success("post has been deleted");
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deletePost: false } });
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deletePost: false } });
-    await dispatch(getPost(1));
+    if (isSavedPost) await dispatch(getSavedPost(1));
+    else await dispatch(getPost(1));
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);

@@ -18,38 +18,46 @@ const SectionCourses = () => {
     <div className="home-courses-container">
       <Scrollbars autoHide autoHeight autoHeightMin={100} autoHeightMax={200}>
         <div className="home-courses-list">
-          {coursesArr.map((item, index) => (
-            <div
-              key={index}
-              className={`home-course-item ${item.is_blocked ? "blocked" : ""}`}
-            >
-              <div className="item-circle">
-                <button
-                  className={`item-half-circle ${
-                    activeCourse.name === item.name && activeCourse.type === 1
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={(_) => handleChange(item, 1)}
-                >
-                  Lec
-                </button>
-                <button
-                  className={`item-half-circle ${
-                    activeCourse.name === item.name && activeCourse.type === 2
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={(_) => handleChange(item, 2)}
-                >
-                  Sec
-                </button>
+          {coursesArr.length >= 1 ? (
+            coursesArr.map((item, index) => (
+              <div
+                key={index}
+                className={`home-course-item ${
+                  item.is_blocked ? "blocked" : ""
+                }`}
+              >
+                <div className="item-circle">
+                  <button
+                    className={`item-half-circle ${
+                      activeCourse.name === item.name && activeCourse.type === 1
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={(_) => handleChange(item, 1)}
+                  >
+                    Lec
+                  </button>
+                  <button
+                    className={`item-half-circle ${
+                      activeCourse.name === item.name && activeCourse.type === 2
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={(_) => handleChange(item, 2)}
+                  >
+                    Sec
+                  </button>
+                </div>
+                <p className="item-title" title={item.name}>
+                  {item.name}
+                </p>
               </div>
-              <p className="item-title" title={item.name}>
-                {item.name}
-              </p>
+            ))
+          ) : (
+            <div className="empty-container b-0">
+              <p>you dont have any courses yet</p>
             </div>
-          ))}
+          )}
         </div>
       </Scrollbars>
     </div>

@@ -10,8 +10,9 @@ import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 import getPost from "./getPost";
+import getSavedPost from "./getSavedPost";
 
-export default (obj) => async (dispatch, getState) => {
+export default (obj, setState, isSavedPost) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { editPost: true } });
   const activeCourse = getState().activeCourse;
   obj.course_code = activeCourse.code;
@@ -26,12 +27,18 @@ export default (obj) => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().userDetails.token}`,
       },
     });
-
+    console.log(isSavedPost);
     toast.success("Post edited successfully");
     $("#editPostModal").modal("hide");
+    setState({
+      content: "",
+      files: [],
+      files_name: [],
+    });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editPost: false } });
     dispatch({ type: REDUX_PAGE_ERRORS, value: { editPost: false } });
-    await dispatch(getPost(1));
+    if (isSavedPost) await dispatch(getSavedPost(1));
+    else await dispatch(getPost(1));
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);

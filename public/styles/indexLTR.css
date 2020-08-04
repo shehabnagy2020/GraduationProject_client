@@ -14806,7 +14806,7 @@ body {
   flex-grow: 1;
   outline: none;
 }
-.home-post .post-footer .post-btn.active {
+.home-post .post-footer .post-btn.active, .home-post .post-footer .post-btn:hover {
   background: #f3c623;
 }
 .home-post .post-footer .post-btn i {

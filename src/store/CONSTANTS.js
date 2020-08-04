@@ -1,7 +1,7 @@
-export const CDN = "https://api.hicit-learning.me";
-export const API = "https://api.hicit-learning.me/api";
-// export const API = "http://localhost:8000/api";
-// export const CDN = "http://localhost:8000";
+// export const CDN = "https://api.hicit-learning.me";
+// export const API = "https://api.hicit-learning.me/api";
+export const API = "http://localhost:8000/api";
+export const CDN = "http://localhost:8000";
 
 ///// REDUX /////
 export const REDUX_USER = "REDUX_USER";

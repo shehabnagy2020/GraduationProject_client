@@ -5,7 +5,7 @@ import editPost from "../../../store/actions/editPost";
 import { useEffect } from "react";
 import { post } from "jquery";
 
-const EditPost = ({ post }) => {
+const EditPost = ({ post, isSavedPost }) => {
   const [state, setState] = useState({
     content: "",
     files: [],
@@ -33,7 +33,7 @@ const EditPost = ({ post }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editPost(state, setState));
+    dispatch(editPost(state, setState, isSavedPost));
   };
 
   const handleFileChange = (e) => {
