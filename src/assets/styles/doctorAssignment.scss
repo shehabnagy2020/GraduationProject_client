@@ -60,33 +60,39 @@
   border: 1px solid rgba(221, 221, 221, 0.514);
   margin: 15px 0 0 0;
   background: $dark;
-  justify-content: center;
-  text-align: center;
-  flex-flow: column;
-  cursor: pointer;
+  flex-flow: row;
 
-  &.active {
-    background: $primary;
+  .assignment-btn-container {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column;
+    padding: 10px;
+    .close-btn {
+      color: $danger;
+      font-size: 1.2rem;
+      border: 0;
+      background: none;
+    }
+    .edit-btn {
+      color: #fff;
+      font-size: 1.2rem;
+      border: 0;
+      background: none;
+    }
   }
 
-  .btn-container {
-    padding: 5px 10px;
-    text-align: end;
+  .assignment-text-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 10px 0;
+    cursor: pointer;
+    &.active {
+      background: $primary;
+    }
   }
-
-  .close-btn {
-    color: $danger;
-    font-size: 1.2rem;
-    border: 0;
-    background: none;
-  }
-  .edit-btn {
-    color: #fff;
-    font-size: 1.2rem;
-    border: 0;
-    background: none;
-  }
-
   .assignment-text {
     margin: 0 0 5px 0;
     color: #fff;

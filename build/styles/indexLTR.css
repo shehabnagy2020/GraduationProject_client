@@ -14255,29 +14255,37 @@ select option {
   border: 1px solid rgba(221, 221, 221, 0.514);
   margin: 15px 0 0 0;
   background: #343b45;
-  justify-content: center;
-  text-align: center;
+  flex-flow: row;
+}
+.assignment-no .assignment-btn-container {
+  display: flex;
+  justify-content: space-between;
   flex-flow: column;
-  cursor: pointer;
+  padding: 10px;
 }
-.assignment-no.active {
-  background: #f3c623;
-}
-.assignment-no .btn-container {
-  padding: 5px 10px;
-  text-align: end;
-}
-.assignment-no .close-btn {
+.assignment-no .assignment-btn-container .close-btn {
   color: #ff4040;
   font-size: 1.2rem;
   border: 0;
   background: none;
 }
-.assignment-no .edit-btn {
+.assignment-no .assignment-btn-container .edit-btn {
   color: #fff;
   font-size: 1.2rem;
   border: 0;
   background: none;
+}
+.assignment-no .assignment-text-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.assignment-no .assignment-text-container.active {
+  background: #f3c623;
 }
 .assignment-no .assignment-text {
   margin: 0 0 5px 0;

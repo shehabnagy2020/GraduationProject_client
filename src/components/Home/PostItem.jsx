@@ -77,34 +77,30 @@ const PostItem = ({ item, setPostItem }) => {
           {item.owner && <h2>{item.owner.name}</h2>}
           <span>{moment(item.date).fromNow()}</span>
         </div>
-        {((userDetails.code === item.owner.code &&
-          userDetails.role_type == item.owner.role_type) ||
-          userDetails.role_type === "doctor") && (
-          <div className="post-menu">
-            <div className="dropdown">
-              <div className="dropdown-toggle without" data-toggle="dropdown">
-                <i className="fa fa-ellipsis-h"></i>
-              </div>
-              <div className="dropdown-menu">
-                {userDetails.code === item.owner.code &&
-                  userDetails.role_type == item.owner.role_type && (
-                    <button
-                      className="dropdown-item"
-                      onClick={(_) => handleEditModal(item)}
-                    >
-                      Edit
-                    </button>
-                  )}
-                <button
-                  className="dropdown-item"
-                  onClick={(_) => dispatch(deletePost(item.id, false))}
-                >
-                  Delete
-                </button>
+        {userDetails.code === item.owner.code &&
+          userDetails.role_type == item.owner.role_type && (
+            <div className="post-menu">
+              <div className="dropdown">
+                <div className="dropdown-toggle without" data-toggle="dropdown">
+                  <i className="fa fa-ellipsis-h"></i>
+                </div>
+                <div className="dropdown-menu">
+                  <button
+                    className="dropdown-item"
+                    onClick={(_) => handleEditModal(item)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="dropdown-item"
+                    onClick={(_) => dispatch(deletePost(item.id, false))}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
       <div className="post-body">
         <p>{item.content}</p>

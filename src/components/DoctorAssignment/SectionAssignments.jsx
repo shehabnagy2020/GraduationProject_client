@@ -79,33 +79,32 @@ const SectionAssignments = () => {
             scrollableTarget="scroll-assignments"
           >
             {assignmentsArr.data.map((item, index) => (
-              <div
-                key={index}
-                className={`assignment-no ${
-                  activeAssignment.id === item.id ? "active" : ""
-                }`}
-                onClick={(_) => handleChoose(item)}
-              >
-                <div className="btn-container">
+              <div key={index} className={`assignment-no`}>
+                <div
+                  className={`assignment-text-container ${
+                    activeAssignment.id === item.id ? "active" : ""
+                  }`}
+                  onClick={(_) => handleChoose(item)}
+                >
+                  <p className="assignment-text">
+                    {item.course_name}{" "}
+                    {moment(new Date(item.date)).format("DD/MM")}
+                  </p>
+                  <p className="assignment-text">
+                    Deadline:{" "}
+                    {moment(new Date(item.deadline)).format("YYYY-MM-DD")}
+                  </p>
+                  <p className="assignment-text">
+                    Total marks: {item.total_mark}
+                  </p>
+                </div>
+                <div className="assignment-btn-container">
                   <button
                     className="close-btn"
                     onClick={(_) => dispatch(deleteAssignment(item.id))}
                   >
                     <i className="fa fa-close"></i>
                   </button>
-                </div>
-                <p className="assignment-text">
-                  {item.course_name}{" "}
-                  {moment(new Date(item.date)).format("DD/MM")}
-                </p>
-                <p className="assignment-text">
-                  Deadline:{" "}
-                  {moment(new Date(item.deadline)).format("YYYY-MM-DD")}
-                </p>
-                <p className="assignment-text">
-                  Total marks: {item.total_mark}
-                </p>
-                <div className="btn-container">
                   <button
                     className="edit-btn"
                     onClick={(_) => handleEditAssignment(item)}
