@@ -408,10 +408,25 @@ body {
         margin: 0;
       }
 
-      span {
+      .content-footer {
         position: absolute;
         bottom: -25px;
         left: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 97%;
+
+        span {
+          font-size: 0.9rem;
+          color: #fff;
+        }
+        button {
+          color: $danger;
+          border: 0;
+          background: none;
+          font-size: 1rem;
+        }
       }
     }
   }

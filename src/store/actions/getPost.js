@@ -8,7 +8,7 @@ import {
   REDUX_CLEAR,
 } from "../CONSTANTS";
 
-export default (page) => async (dispatch, getState) => {
+export default (page, text) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getPost: true } });
   dispatch({ type: REDUX_PAGE_HELPERS, value: { page: page + 1 } });
 
@@ -18,11 +18,18 @@ export default (page) => async (dispatch, getState) => {
       baseURL: API,
       url: "/post/getAll",
       method: "GET",
-      params: { course_code: activeCourse.code, type: activeCourse.type, page },
+      params: {
+        course_code: activeCourse.code,
+        type: activeCourse.type,
+        page,
+        text,
+      },
       headers: {
         Authorization: `Bearer ${getState().userDetails.token}`,
       },
     });
+
+    console.log(res.data);
     let data = getState().postArr.data;
     let hasMore = false;
     if (page == 1) {

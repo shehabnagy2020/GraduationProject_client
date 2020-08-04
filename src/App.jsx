@@ -16,10 +16,17 @@ import PageProfile from "./components/Profile/PageProfile";
 import getCourse from "./store/actions/getCourse";
 import getRecentAssignments from "./store/actions/getRecentAssignments";
 import socketIOClient from "socket.io-client";
-import { CDN, REDUX_SOCKET, REDUX_NOTIFICATION } from "./store/CONSTANTS";
+import {
+  CDN,
+  REDUX_SOCKET,
+  REDUX_NOTIFICATION,
+  REDUX_POST,
+} from "./store/CONSTANTS";
 
 function App({}) {
-  const { pageLoaders, userDetails, isLogged } = useSelector((state) => state);
+  const { pageLoaders, userDetails, isLogged, postArr } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   useEffect((_) => {
     if (true) {
@@ -39,25 +46,50 @@ function App({}) {
   useEffect(() => {
     if (isLogged && userDetails.token) {
       dispatch(getCourse());
-      dispatch(getRecentAssignments());
     }
-  }, [isLogged, userDetails]);
+  }, [isLogged, userDetails.code]);
 
   useEffect(() => {
     const socket = socketIOClient(CDN);
     socket.on("NOTIFICATION", (data) => {
       dispatch({ type: REDUX_NOTIFICATION, value: data });
     });
+    socket.on("COMMENT_ADD", (data) => {
+      if (postArr.data.length >= 1) {
+        let newData = postArr.data.map((item) => {
+          if (item.id == data.post_id) {
+            if (item.comments) item.comments = [data, ...item.comments];
+          }
+          return item;
+        });
+        console.log(newData);
+        dispatch({ type: REDUX_POST, value: { ...postArr, data: newData } });
+      }
+    });
+    socket.on("COMMENT_REMOVE", (data) => {
+      if (postArr.data.length >= 1) {
+        let newData = postArr.data.map((item) => {
+          if (item.id == data.post_id) {
+            if (item.comments)
+              item.comments = item.comments.filter((i) => i.id != data.id);
+          }
+          return item;
+        });
+        console.log(newData);
+        dispatch({ type: REDUX_POST, value: { ...postArr, data: newData } });
+      }
+    });
     dispatch({ type: REDUX_SOCKET, value: socket });
     return (_) => {
       socket.disconnect();
     };
-  }, []);
+  }, [postArr]);
 
   return (
     <>
       {(pageLoaders.getDepartment ||
         pageLoaders.getGradeYear ||
+        pageLoaders.getSearch ||
         pageLoaders.checkToken ||
         pageLoaders.getRecentAssignments ||
         pageLoaders.getCourse ||

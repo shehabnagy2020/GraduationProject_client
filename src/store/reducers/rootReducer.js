@@ -22,6 +22,7 @@ import {
   REDUX_RECENT_ASSIGNMENTS,
   REDUX_CLEAR,
   REDUX_SOCKET,
+  REDUX_SEARCH,
 } from "../CONSTANTS";
 
 const initState = {
@@ -36,6 +37,7 @@ const initState = {
   courseStudentsArr: [],
   postArr: { data: [], hasMore: true },
   savedPostsArr: { data: [], hasMore: true },
+  searchArr: { data: [], hasMore: true },
   departmentArr: [],
   gradeYearArr: [],
   notificationArr: [],
@@ -67,6 +69,12 @@ export default (state = initState, action) => {
       return {
         ...state,
         pageErrors: { ...state.pageErrors, ...action.value },
+      };
+
+    case REDUX_SEARCH:
+      return {
+        ...state,
+        searchArr: { ...state.pageErrors, ...action.value },
       };
 
     case REDUX_PAGE_HELPERS:

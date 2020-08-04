@@ -35,7 +35,7 @@ export default () => async (dispatch, getState) => {
             type: REDUX_ACTIVE_COURSE,
             value: { ...element, type: 1 },
           });
-          await dispatch(getPost(1));
+          // await dispatch(getPost(1));
           break;
         }
       }

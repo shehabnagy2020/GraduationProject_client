@@ -13930,6 +13930,10 @@ h3 {
   border-radius: 20px;
 }
 
+.click {
+  cursor: pointer;
+}
+
 .modal .modal-content {
   background: #343b45;
 }
@@ -14322,11 +14326,46 @@ select option {
   width: 100%;
   margin: 0 0 2vh 0;
   height: 10vh;
+  position: relative;
+  z-index: 1000;
 }
 .header.active {
-  z-index: 1000;
   position: fixed;
   transition: 0.3s all;
+}
+
+.search-container {
+  border: 1px solid #555;
+  background: #343b45;
+  display: flex;
+  padding: 10px 10px;
+  /* border-radius: 10px; */
+  width: 250px;
+  position: fixed;
+  right: 10%;
+  z-index: 900;
+  transition: 0.3s all;
+  opacity: 0;
+  bottom: 100%;
+}
+.search-container.active {
+  opacity: 1;
+  bottom: 84%;
+}
+.search-container button {
+  font-size: 1rem;
+  transition: 0.4s;
+  color: #fff;
+  background: none;
+  border: 0;
+  margin: 0 0 0 10px;
+}
+.search-container input {
+  border: none;
+  background: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
 }
 
 .header-col {
@@ -14348,33 +14387,6 @@ select option {
   margin: 0 20px 0 0;
   width: 60px;
   height: 60px;
-}
-
-.search-box {
-  border: 1px solid #ddd;
-  background: #343b45;
-  display: flex;
-  padding: 10px 15px;
-  border-radius: 10px;
-  width: 250px;
-}
-
-.search-btn {
-  font-size: 1rem;
-  transition: 0.4s;
-  color: #fff;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  margin: 0 10px 0 0;
-}
-
-.search-txt {
-  border: none;
-  background: none;
-  outline: none;
-  color: #fff;
-  font-size: 16px;
 }
 
 .header-list {
@@ -14854,10 +14866,24 @@ body {
   font-size: 1rem;
   margin: 0;
 }
-.home-post .comment-list .content-container span {
+.home-post .comment-list .content-container .content-footer {
   position: absolute;
   bottom: -25px;
   left: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 97%;
+}
+.home-post .comment-list .content-container .content-footer span {
+  font-size: 0.9rem;
+  color: #fff;
+}
+.home-post .comment-list .content-container .content-footer button {
+  color: #ff4040;
+  border: 0;
+  background: none;
+  font-size: 1rem;
 }
 .home-post .comment-input-container {
   padding: 15px 0;

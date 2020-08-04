@@ -8,14 +8,21 @@ import getHelp from "../../store/actions/getHelp";
 import deleteHelp from "../../store/actions/deleteHelp";
 import ShowHelp from "../Modals/ShowHelp/ShowHelp";
 import logout from "../../store/actions/logout";
+import getPost from "../../store/actions/getPost";
 import { Link } from "react-router-dom";
 import BlockUnblock from "../Modals/BlockUnblock/BlockUnblock";
 import { CDN } from "../../store/CONSTANTS";
 
-const Header = ({ noMargin, noSearch, assignmentMenu }) => {
+const Header = ({ noMargin, isSearch, assignmentMenu }) => {
   const { userDetails, helpArr, pageLoaders, notificationArr } = useSelector(
     (state) => state
   );
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(getPost(1, search));
+  };
+
   const [helpItem, setHelpItem] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,6 +51,11 @@ const Header = ({ noMargin, noSearch, assignmentMenu }) => {
     $("#assignment-container").toggleClass("active");
   };
 
+  const handleShowSearch = (_) => {
+    $(".search-container").toggleClass("active");
+    $(".search-container input").focus();
+  };
+
   return (
     <header className={`header ${noMargin ? "mb-0" : ""}`}>
       <div className="header-col">
@@ -58,9 +70,12 @@ const Header = ({ noMargin, noSearch, assignmentMenu }) => {
       </div>
       <div className="header-col">
         <div className="header-list">
-          {!noSearch && (
+          {isSearch && (
             <>
-              <div className="header-list-item">
+              <div
+                className="header-list-item click"
+                onClick={handleShowSearch}
+              >
                 <i className="fa fa-search" />
               </div>
               <div className="header-list-item seperator"></div>
@@ -69,11 +84,7 @@ const Header = ({ noMargin, noSearch, assignmentMenu }) => {
 
           {/* Help Dropdown */}
           <div className="header-list-item dropdown" id="helpDropdown">
-            <button
-              className="dropdown-toggle without"
-              data-toggle="dropdown"
-              onClick={(_) => {}}
-            >
+            <button className="dropdown-toggle without" data-toggle="dropdown">
               <i className="fa fa-question-circle" />
             </button>
             <div className="dropdown-menu dropdown-menu-right">
@@ -196,6 +207,16 @@ const Header = ({ noMargin, noSearch, assignmentMenu }) => {
       </div>
       <ShowHelp obj={helpItem} />
       <BlockUnblock />
+      <form className="search-container" onSubmit={handleSearch}>
+        <input
+          type="search"
+          id="search"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button>
+          <i className="fa fa-search"></i>
+        </button>
+      </form>
     </header>
   );
 };

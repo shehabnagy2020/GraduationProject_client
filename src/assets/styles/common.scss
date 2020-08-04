@@ -335,9 +335,12 @@
 }
 
 .spererator-line {
-      width: 75%;
-    height: 1px;
-    background: #9c9c9c;
-    margin: 10px auto 15px;
-    border-radius: 20px;
+  width: 75%;
+  height: 1px;
+  background: #9c9c9c;
+  margin: 10px auto 15px;
+  border-radius: 20px;
+}
+.click {
+  cursor: pointer;
 }

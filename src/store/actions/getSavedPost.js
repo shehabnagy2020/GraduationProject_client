@@ -11,7 +11,7 @@ import {
 
 export default (page) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getSavedPost: true } });
-  dispatch({ type: REDUX_PAGE_HELPERS, value: { pageSaved: page + 1 } });
+  dispatch({ type: REDUX_PAGE_HELPERS, value: { page: page + 1 } });
 
   try {
     const res = await Axios({
@@ -23,7 +23,7 @@ export default (page) => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().userDetails.token}`,
       },
     });
-    let data = getState().savedPostsArr.data;
+    let data = getState().postArr.data;
     let hasMore = false;
     if (page == 1) {
       if (res.data.length >= 1) {
@@ -41,7 +41,7 @@ export default (page) => async (dispatch, getState) => {
     }
     console.log(res);
     dispatch({
-      type: REDUX_SAVED_POSTS,
+      type: REDUX_POST,
       value: { hasMore, data },
     });
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getSavedPost: false } });
