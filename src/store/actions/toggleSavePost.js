@@ -8,8 +8,9 @@ import {
 } from "../CONSTANTS";
 import getSavedPost from "./getSavedPost";
 import getPost from "./getPost";
+import { toast } from "react-toastify";
 
-export default (post_id, type) => async (dispatch, getState) => {
+export default (post_id, type, status) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: true } });
   try {
     const res = await Axios({
@@ -25,6 +26,7 @@ export default (post_id, type) => async (dispatch, getState) => {
     else await dispatch(getSavedPost(1));
     dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: false } });
+    toast.success(res.data.message);
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);
@@ -36,5 +38,6 @@ export default (post_id, type) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: false } });
+    toast.error("Failed to do the operation, try again");
   }
 };

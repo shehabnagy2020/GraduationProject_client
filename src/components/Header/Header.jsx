@@ -10,8 +10,7 @@ import ShowHelp from "../Modals/ShowHelp/ShowHelp";
 import logout from "../../store/actions/logout";
 import getPost from "../../store/actions/getPost";
 import { Link } from "react-router-dom";
-import BlockUnblock from "../Modals/BlockUnblock/BlockUnblock";
-import { CDN } from "../../store/CONSTANTS";
+import { CDN, REDUX_PAGE_HELPERS } from "../../store/CONSTANTS";
 
 const Header = ({ noMargin, isSearch, assignmentMenu }) => {
   const { userDetails, helpArr, pageLoaders, notificationArr } = useSelector(
@@ -23,7 +22,6 @@ const Header = ({ noMargin, isSearch, assignmentMenu }) => {
     dispatch(getPost(1, search));
   };
 
-  const [helpItem, setHelpItem] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
     $(function () {
@@ -42,8 +40,8 @@ const Header = ({ noMargin, isSearch, assignmentMenu }) => {
       dispatch(getHelp());
     });
   }, []);
-  const chooseHelpItem = (item) => {
-    setHelpItem(item);
+  const chooseHelpItem = async (item) => {
+    await dispatch({ type: REDUX_PAGE_HELPERS, value: { helpItem: item } });
     $("#showHelpModal").modal("show");
   };
 
@@ -205,8 +203,7 @@ const Header = ({ noMargin, isSearch, assignmentMenu }) => {
           </div>
         </div>
       </div>
-      <ShowHelp obj={helpItem} />
-      <BlockUnblock />
+
       <form className="search-container" onSubmit={handleSearch}>
         <input
           type="search"

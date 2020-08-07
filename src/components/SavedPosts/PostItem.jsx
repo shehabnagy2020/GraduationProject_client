@@ -129,7 +129,9 @@ const PostItem = ({ item, setPostItem }) => {
         )}
         <button
           className={`post-btn ${item.is_saved ? "active" : ""}`}
-          onClick={(_) => dispatch(toggleSavePost(item.id, "post"))}
+          onClick={(_) =>
+            dispatch(toggleSavePost(item.id, "save", item.is_saved))
+          }
         >
           <i className="fa fa-save"></i>
           save

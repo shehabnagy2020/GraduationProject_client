@@ -22,11 +22,17 @@ import {
   REDUX_NOTIFICATION,
   REDUX_POST,
 } from "./store/CONSTANTS";
+import BlockUnblock from "./components/Modals/BlockUnblock/BlockUnblock";
+import ShowHelp from "./components/Modals/ShowHelp/ShowHelp";
 
 function App({}) {
-  const { pageLoaders, userDetails, isLogged, postArr } = useSelector(
-    (state) => state
-  );
+  const {
+    pageLoaders,
+    userDetails,
+    isLogged,
+    postArr,
+    pageHelpers,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect((_) => {
     document
@@ -116,6 +122,8 @@ function App({}) {
         <Route path="*" />
       </Switch>
       <AddHelp />
+      <BlockUnblock />
+      {pageHelpers.helpItem && <ShowHelp />}
     </>
   );
 }
