@@ -56,7 +56,6 @@ function App({}) {
           }
           return item;
         });
-        console.log(newData);
         dispatch({ type: REDUX_POST, value: { ...postArr, data: newData } });
       }
     });
@@ -69,7 +68,6 @@ function App({}) {
           }
           return item;
         });
-        console.log(newData);
         dispatch({ type: REDUX_POST, value: { ...postArr, data: newData } });
       }
     });
