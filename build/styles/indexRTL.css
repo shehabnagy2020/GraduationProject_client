@@ -13972,6 +13972,28 @@ h3 {
   background: none;
   color: #f3c623;
 }
+.modal .modal-items-list {
+  margin: 0 0 15px 0;
+}
+.modal .modal-items-list:last-of-type {
+  margin: 0;
+}
+.modal .modal-items-list .modal-items-list-header {
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 1.1rem;
+  margin: 0;
+}
+.modal .modal-items-list .modal-items-list-content {
+  padding: 0 30px;
+  display: flex;
+  flex-flow: column;
+}
+.modal .modal-items-list .modal-items-list-content span {
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 1rem;
+}
 .modal .modal-form-control {
   width: 100%;
   margin: 0 0 15px 0;
@@ -13980,7 +14002,7 @@ h3 {
   margin: 0;
 }
 .modal .modal-form-control.normal-width {
-  width: 170px;
+  width: 180px;
 }
 .modal .modal-form-control.label-inline {
   display: flex;
@@ -14255,29 +14277,37 @@ select option {
   border: 1px solid rgba(221, 221, 221, 0.514);
   margin: 15px 0 0 0;
   background: #343b45;
-  justify-content: center;
-  text-align: center;
+  flex-flow: row;
+}
+.assignment-no .assignment-btn-container {
+  display: flex;
+  justify-content: space-between;
   flex-flow: column;
-  cursor: pointer;
+  padding: 10px;
 }
-.assignment-no.active {
-  background: #f3c623;
-}
-.assignment-no .btn-container {
-  padding: 5px 10px;
-  text-align: end;
-}
-.assignment-no .close-btn {
+.assignment-no .assignment-btn-container .close-btn {
   color: #ff4040;
   font-size: 1.2rem;
   border: 0;
   background: none;
 }
-.assignment-no .edit-btn {
+.assignment-no .assignment-btn-container .edit-btn {
   color: #fff;
   font-size: 1.2rem;
   border: 0;
   background: none;
+}
+.assignment-no .assignment-text-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.assignment-no .assignment-text-container.active {
+  background: #f3c623;
 }
 .assignment-no .assignment-text {
   margin: 0 0 5px 0;
@@ -14308,6 +14338,7 @@ select option {
   justify-content: center;
   text-align: center;
   flex-flow: column;
+  cursor: pointer;
 }
 .assignment-name .assignment-solver-text {
   color: #fff;
@@ -14806,7 +14837,7 @@ body {
   flex-grow: 1;
   outline: none;
 }
-.home-post .post-footer .post-btn.active {
+.home-post .post-footer .post-btn.active, .home-post .post-footer .post-btn:hover {
   background: #f3c623;
 }
 .home-post .post-footer .post-btn i {
@@ -14873,7 +14904,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 97%;
+  width: 93%;
+}
+@media (min-width: 990px) {
+  .home-post .comment-list .content-container .content-footer {
+    width: 97%;
+  }
 }
 .home-post .comment-list .content-container .content-footer span {
   font-size: 0.9rem;
@@ -14930,7 +14966,7 @@ body {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background: #fcbb3b;
+  background: #f3c623;
   padding: 10px 15px;
   border: 0;
   z-index: 1000;
