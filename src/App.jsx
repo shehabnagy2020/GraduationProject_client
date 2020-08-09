@@ -21,10 +21,12 @@ import {
   REDUX_SOCKET,
   REDUX_NOTIFICATION,
   REDUX_POST,
+  REDUX_COURSE,
 } from "./store/CONSTANTS";
 import BlockUnblock from "./components/Modals/BlockUnblock/BlockUnblock";
 import ShowHelp from "./components/Modals/ShowHelp/ShowHelp";
 import AboutUs from "./components/Modals/AboutUs/AboutUs";
+import getAllCourses from "./store/actions/getAllCourses";
 
 function App({}) {
   const {
@@ -33,12 +35,16 @@ function App({}) {
     isLogged,
     postArr,
     pageHelpers,
+    coursesArr,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect((_) => {
     document
       .getElementById("main-styles")
       .setAttribute("href", "styles/indexLTR.css");
+
+    dispatch(getAllCourses());
+
     if (isLogged) {
       dispatch(checkToken());
     }
@@ -52,9 +58,24 @@ function App({}) {
 
   useEffect(() => {
     const socket = socketIOClient(CDN);
+
     socket.on("NOTIFICATION", (data) => {
       dispatch({ type: REDUX_NOTIFICATION, value: data });
     });
+
+    // socket.on("USER_BLOCKING", (data) => {
+    //   if (userDetails.code === data.student_code) {
+    //     let newCourses = coursesArr.map((item) => {
+    //       if (item.code === data.course_code) {
+    //         item.is_blocked = data.is_blocked;
+    //       }
+    //       console.log(item);
+    //       return item;
+    //     });
+    //     dispatch({ type: REDUX_COURSE, value: { ...newCourses } });
+    //   }
+    // });
+
     socket.on("COMMENT_ADD", (data) => {
       if (postArr.data.length >= 1) {
         let newData = postArr.data.map((item) => {
@@ -91,6 +112,7 @@ function App({}) {
       {(pageLoaders.getDepartment ||
         pageLoaders.getGradeYear ||
         pageLoaders.getSearch ||
+        pageLoaders.getAllCourses ||
         pageLoaders.checkToken ||
         pageLoaders.getRecentAssignments ||
         pageLoaders.getCourse ||

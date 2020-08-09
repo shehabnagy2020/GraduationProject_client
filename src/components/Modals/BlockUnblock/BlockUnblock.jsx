@@ -23,9 +23,7 @@ const BlockUnblock = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllCourses());
-  }, []);
+  useEffect(() => {}, []);
   useEffect(() => {
     if (blockData.is_blocked) {
       setState({ ...state, block_period: blockData.block_period });
@@ -54,9 +52,9 @@ const BlockUnblock = () => {
       tabIndex="-1"
       role="dialog"
     >
-      {(pageLoaders.getAllCourses ||
-        pageLoaders.getCourseStudents ||
-        pageLoaders.getBlockData) && <PageSpinner />}
+      {(pageLoaders.getCourseStudents || pageLoaders.getBlockData) && (
+        <PageSpinner />
+      )}
       <div className="modal-dialog modal-dialog-centered">
         <form className="modal-content">
           <div className="modal-header">
