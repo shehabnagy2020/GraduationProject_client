@@ -41,8 +41,6 @@ const ShowAssignment = ({ solve }) => {
     }
   }, [solve]);
 
-  console.log(solve);
-
   return (
     <div
       className="modal fade"

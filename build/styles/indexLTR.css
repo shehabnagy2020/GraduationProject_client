@@ -14002,7 +14002,7 @@ h3 {
   margin: 0;
 }
 .modal .modal-form-control.normal-width {
-  width: 170px;
+  width: 180px;
 }
 .modal .modal-form-control.label-inline {
   display: flex;
@@ -14338,6 +14338,7 @@ select option {
   justify-content: center;
   text-align: center;
   flex-flow: column;
+  cursor: pointer;
 }
 .assignment-name .assignment-solver-text {
   color: #fff;
