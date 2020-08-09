@@ -28,7 +28,7 @@ const SectionSolvers = () => {
     <div className="assignment-right-name" style={{ height: "90vh" }}>
       <h3 className="title">
         {activeAssignment.course_name}{" "}
-        {moment(new Date(activeAssignment.date)).format("DD/MM")}
+        {moment(new Date(activeAssignment.date)).format("M-D")}
       </h3>
       {solversArr.data.length >= 1 ? (
         <Scrollbars

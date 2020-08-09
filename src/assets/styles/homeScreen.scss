@@ -416,7 +416,10 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 97%;
+        width: 93%;
+        @media (min-width: 990px) {
+          width: 97%;
+        }
 
         span {
           font-size: 0.9rem;
@@ -481,7 +484,7 @@ body {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background: #fcbb3b;
+  background: $primary;
   padding: 10px 15px;
   border: 0;
   z-index: 1000;

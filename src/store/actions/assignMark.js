@@ -1,15 +1,9 @@
 import Axios from "axios";
-import {
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_DEPARTMENT,
-  REDUX_SOLVERS,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import getAssignmentsSolvers from "./getAssignmentsSolvers";
 import * as $ from "jquery";
 import { toast } from "react-toastify";
+import clearAll from "./clearAll";
 
 export default (obj, setMark) => async (dispatch, getState) => {
   dispatch({
@@ -43,9 +37,7 @@ export default (obj, setMark) => async (dispatch, getState) => {
   } catch (error) {
     const errRes = error.response;
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({

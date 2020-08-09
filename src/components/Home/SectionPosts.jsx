@@ -33,7 +33,12 @@ const SectionPosts = () => {
           ))
         ) : (
           <div className="empty-container">
-            <p>there are no posts</p>
+            <p>
+              there are no posts{" "}
+              {pageHelpers.search
+                ? `with this keyword "${pageHelpers.search}", try change it`
+                : ""}
+            </p>
           </div>
         )}
       </InfiniteScroll>

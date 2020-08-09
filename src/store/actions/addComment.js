@@ -1,13 +1,6 @@
 import Axios from "axios";
-import {
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_POST,
-  REDUX_PAGE_HELPERS,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
-import getComment from "./getComment";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
+import clearAll from "./clearAll";
 import { toast } from "react-toastify";
 
 export default (obj) => async (dispatch, getState) => {
@@ -27,14 +20,11 @@ export default (obj) => async (dispatch, getState) => {
     toast.success("Comment added successfully");
     dispatch({ type: REDUX_PAGE_ERRORS, value: { addComment: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addComment: false } });
-    dispatch(getComment(obj.post_id));
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { addComment: true } });

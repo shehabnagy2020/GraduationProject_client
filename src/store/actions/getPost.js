@@ -5,12 +5,15 @@ import {
   REDUX_PAGE_ERRORS,
   REDUX_POST,
   REDUX_PAGE_HELPERS,
-  REDUX_CLEAR,
 } from "../CONSTANTS";
+import clearAll from "./clearAll";
 
 export default (page, text) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getPost: true } });
-  dispatch({ type: REDUX_PAGE_HELPERS, value: { page: page + 1 } });
+  dispatch({
+    type: REDUX_PAGE_HELPERS,
+    value: { page: page + 1, search: text },
+  });
 
   const activeCourse = getState().activeCourse;
   try {
@@ -56,9 +59,7 @@ export default (page, text) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getPost: true } });

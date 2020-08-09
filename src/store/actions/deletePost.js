@@ -1,16 +1,9 @@
 import Axios from "axios";
-import {
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_HELP,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
-import { convertToFormData } from "../../utils/helper";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { toast } from "react-toastify";
-import * as $ from "jquery";
 import getPost from "./getPost";
 import getSavedPost from "./getSavedPost";
+import clearAll from "./clearAll";
 
 export default (id, isSavedPost) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { deletePost: true } });
@@ -34,9 +27,7 @@ export default (id, isSavedPost) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deletePost: true } });

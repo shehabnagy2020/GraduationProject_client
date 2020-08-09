@@ -1,14 +1,9 @@
 import Axios from "axios";
 import { convertToFormData } from "../../utils/helper";
-import {
-  REDUX_USER,
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
+import clearAll from "./clearAll";
 
 export default (user, setState, setErrorState) => async (
   dispatch,
@@ -44,9 +39,7 @@ export default (user, setState, setErrorState) => async (
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { changePassword: 1 } });

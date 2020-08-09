@@ -5,9 +5,9 @@ import {
   API,
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
-  REDUX_CLEAR,
 } from "../CONSTANTS";
 import { toast } from "react-toastify";
+import clearAll from "./clearAll";
 
 export default (user) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { changeInfo: true } });
@@ -33,9 +33,7 @@ export default (user) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { changeInfo: 1 } });

@@ -112,9 +112,7 @@ const PageStudentAssignment = () => {
                           <p>{item.course_name}</p>
                           <p>
                             Deadline:{" "}
-                            {moment(new Date(item.deadline)).format(
-                              "YYYY-MM-DD"
-                            )}
+                            {moment(new Date(item.deadline)).format("YYYY-M-D")}
                           </p>
                           <p>Total Marks: {item.total_mark}</p>
                           <button onClick={(_) => handleChoose(item)}>
@@ -129,9 +127,7 @@ const PageStudentAssignment = () => {
                           <p>{item.course_name}</p>
                           <p>
                             Deadline:{" "}
-                            {moment(new Date(item.deadline)).format(
-                              "YYYY-MM-DD"
-                            )}
+                            {moment(new Date(item.deadline)).format("YYYY-M-D")}
                           </p>
                           <p>
                             Mark:{" "}

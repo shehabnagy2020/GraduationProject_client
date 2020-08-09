@@ -88,11 +88,11 @@ const SectionAssignments = () => {
                 >
                   <p className="assignment-text">
                     {item.course_name}{" "}
-                    {moment(new Date(item.date)).format("DD/MM")}
+                    {moment(new Date(item.date)).format("M-D")}
                   </p>
                   <p className="assignment-text">
                     Deadline:{" "}
-                    {moment(new Date(item.deadline)).format("YYYY-MM-DD")}
+                    {moment(new Date(item.deadline)).format("YYYY-M-D")}
                   </p>
                   <p className="assignment-text">
                     Total marks: {item.total_mark}

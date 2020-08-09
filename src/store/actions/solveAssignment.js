@@ -1,15 +1,9 @@
 import Axios from "axios";
-import {
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_HELP,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
-import getPost from "./getPost";
+import clearAll from "./clearAll";
 import getAssignments from "./getAssignments";
 
 export default (obj, setState, setAssignmentEdit) => async (
@@ -39,9 +33,7 @@ export default (obj, setState, setAssignmentEdit) => async (
   } catch (error) {
     const errRes = error.response;
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     console.log(errRes);

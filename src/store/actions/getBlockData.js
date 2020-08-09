@@ -4,8 +4,8 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_BLOCK_DATA,
-  REDUX_CLEAR,
 } from "../CONSTANTS";
+import clearAll from "./clearAll";
 
 export default (obj) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getBlockData: true } });
@@ -26,9 +26,7 @@ export default (obj) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getBlockData: true } });

@@ -58,6 +58,7 @@ function App({}) {
       if (postArr.data.length >= 1) {
         let newData = postArr.data.map((item) => {
           if (item.id == data.post_id) {
+            item.comments_count = parseInt(item.comments_count) + 1;
             if (item.comments) item.comments = [data, ...item.comments];
           }
           return item;
@@ -69,6 +70,7 @@ function App({}) {
       if (postArr.data.length >= 1) {
         let newData = postArr.data.map((item) => {
           if (item.id == data.post_id) {
+            item.comments_count = parseInt(item.comments_count) - 1;
             if (item.comments)
               item.comments = item.comments.filter((i) => i.id != data.id);
           }

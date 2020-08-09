@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as $ from "jquery";
 import { useState } from "react";
 import addComment from "../../store/actions/addComment";
+import TextareaAutosize from "react-textarea-autosize";
 
 const PostItem = ({ item, setPostItem }) => {
   console.log(item);
@@ -188,13 +189,14 @@ const PostItem = ({ item, setPostItem }) => {
                 </>
               )}
             </div>
-            <textarea
-              rows="2"
+            <TextareaAutosize
+              maxRows={5}
+              minRows={1}
               className="input"
               placeholder="Enter your comment"
               onChange={(e) => setcommentText(e.target.value)}
               value={commentText}
-            ></textarea>
+            />
             <button className="btn">
               <i className="fa fa-paper-plane"></i>
             </button>

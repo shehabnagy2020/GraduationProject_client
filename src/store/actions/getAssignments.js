@@ -3,13 +3,12 @@ import {
   API,
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
-  REDUX_DEPARTMENT,
   REDUX_ASSIGNMENTS,
   REDUX_PAGE_HELPERS,
   REDUX_ACTIVE_ASSIGNMENT,
-  REDUX_CLEAR,
 } from "../CONSTANTS";
 import getAssignmentsSolvers from "./getAssignmentsSolvers";
+import clearAll from "./clearAll";
 
 export default (page, avialability_type) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getAssignments: true } });
@@ -75,9 +74,7 @@ export default (page, avialability_type) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getAssignments: true } });

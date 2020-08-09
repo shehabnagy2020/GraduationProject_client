@@ -2,13 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import * as $ from "jquery";
 import { useSelector, useDispatch } from "react-redux";
 import editAssignment from "../../../store/actions/editAssignment";
+import DatePicker from "react-date-picker";
 
 const EditAssignment = ({ assignment }) => {
   const [state, setState] = useState({
     content: "",
     course_code: "",
     total_mark: "",
-    deadline: "",
+    deadline: new Date(),
     files: [],
     files_name: [],
   });
@@ -26,7 +27,12 @@ const EditAssignment = ({ assignment }) => {
         files_name.push(element.name);
       }
       let { files, ...newassignment } = assignment;
-      setState({ ...state, ...newassignment, files_name });
+      setState({
+        ...state,
+        ...newassignment,
+        deadline: new Date(newassignment.deadline),
+        files_name,
+      });
     }
   }, [assignment]);
 
@@ -131,11 +137,10 @@ const EditAssignment = ({ assignment }) => {
             </div>
             <div className="modal-form-control label-inline">
               <label>Deadline</label>
-              <input
-                type="date"
-                id="deadline"
-                placeholder="Choose Date"
-                onChange={handleChange}
+              <DatePicker
+                onChange={(deadline) => setState({ ...state, deadline })}
+                value={state.deadline}
+                format={"yyyy - M - d"}
                 required
               />
             </div>

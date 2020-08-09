@@ -4,9 +4,8 @@ import {
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
   REDUX_POST,
-  REDUX_PAGE_HELPERS,
-  REDUX_CLEAR,
 } from "../CONSTANTS";
+import clearAll from "./clearAll";
 
 export default (post_id) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getComment: true } });
@@ -40,9 +39,7 @@ export default (post_id) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { getComment: true } });

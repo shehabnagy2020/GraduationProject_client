@@ -1,16 +1,10 @@
 import Axios from "axios";
-import {
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_DEPARTMENT,
-  REDUX_SOLVERS,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { convertToFormData } from "../../utils/helper";
 import getAssignments from "./getAssignments";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
+import clearAll from "./clearAll";
 
 export default (obj, setState) => async (dispatch, getState) => {
   dispatch({
@@ -52,9 +46,7 @@ export default (obj, setState) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({

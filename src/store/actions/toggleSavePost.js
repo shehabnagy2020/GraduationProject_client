@@ -1,14 +1,9 @@
 import Axios from "axios";
-import {
-  API,
-  REDUX_PAGE_LOADERS,
-  REDUX_PAGE_ERRORS,
-  REDUX_DEPARTMENT,
-  REDUX_CLEAR,
-} from "../CONSTANTS";
+import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import getSavedPost from "./getSavedPost";
 import getPost from "./getPost";
 import { toast } from "react-toastify";
+import clearAll from "./clearAll";
 
 export default (post_id, type, status) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: true } });
@@ -31,9 +26,7 @@ export default (post_id, type, status) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: true } });

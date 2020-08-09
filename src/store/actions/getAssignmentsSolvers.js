@@ -3,11 +3,10 @@ import {
   API,
   REDUX_PAGE_LOADERS,
   REDUX_PAGE_ERRORS,
-  REDUX_DEPARTMENT,
   REDUX_SOLVERS,
   REDUX_PAGE_HELPERS,
-  REDUX_CLEAR,
 } from "../CONSTANTS";
+import clearAll from "./clearAll";
 
 export default (page, assignment_id) => async (dispatch, getState) => {
   dispatch({
@@ -62,9 +61,7 @@ export default (page, assignment_id) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     dispatch({

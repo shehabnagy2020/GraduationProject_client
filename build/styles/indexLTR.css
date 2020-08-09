@@ -14881,7 +14881,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 97%;
+  width: 93%;
+}
+@media (min-width: 990px) {
+  .home-post .comment-list .content-container .content-footer {
+    width: 97%;
+  }
 }
 .home-post .comment-list .content-container .content-footer span {
   font-size: 0.9rem;
@@ -14938,7 +14943,7 @@ body {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background: #fcbb3b;
+  background: #f3c623;
   padding: 10px 15px;
   border: 0;
   z-index: 1000;

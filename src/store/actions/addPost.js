@@ -10,6 +10,7 @@ import { convertToFormData } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 import getPost from "./getPost";
+import clearAll from "./clearAll";
 
 export default (obj, setState) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { addPost: true } });
@@ -36,9 +37,7 @@ export default (obj, setState) => async (dispatch, getState) => {
   } catch (error) {
     const errRes = error.respo;
     if (errRes && errRes.status === 401) {
-      dispatch({
-        type: REDUX_CLEAR,
-      });
+      dispatch(clearAll());
       return;
     }
     console.log(errRes);
