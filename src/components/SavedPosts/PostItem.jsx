@@ -147,11 +147,11 @@ const PostItem = ({ item, setPostItem }) => {
                 <div className="comment-item">
                   {/* <div className="pic">st</div> */}
                   <div className="profile-pic-container size-50">
-                    {item.owner && item.owner.profile_image ? (
-                      <img src={`${CDN}/${item.owner.profile_image}`} />
+                    {comment.owner && comment.owner.profile_image ? (
+                      <img src={`${CDN}/${comment.owner.profile_image}`} />
                     ) : (
                       <>
-                        {item.owner && item.owner.name && (
+                        {comment.owner && comment.owner.name && (
                           <div>{userDetails.name.substr(0, 2)}</div>
                         )}
                       </>
