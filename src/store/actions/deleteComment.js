@@ -2,6 +2,7 @@ import Axios from "axios";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { toast } from "react-toastify";
 import clearAll from "./clearAll";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (id, post_id) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { deleteComment: true } });
@@ -30,6 +31,10 @@ export default (id, post_id) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deleteComment: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deleteComment: true } });
-    toast.error("Failed to delete comment");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to delete the comment");
+    }
   }
 };

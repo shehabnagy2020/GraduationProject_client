@@ -13972,6 +13972,28 @@ h3 {
   background: none;
   color: #f3c623;
 }
+.modal .modal-items-list {
+  margin: 0 0 15px 0;
+}
+.modal .modal-items-list:last-of-type {
+  margin: 0;
+}
+.modal .modal-items-list .modal-items-list-header {
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 1.1rem;
+  margin: 0;
+}
+.modal .modal-items-list .modal-items-list-content {
+  padding: 0 30px;
+  display: flex;
+  flex-flow: column;
+}
+.modal .modal-items-list .modal-items-list-content span {
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 1rem;
+}
 .modal .modal-form-control {
   width: 100%;
   margin: 0 0 15px 0;

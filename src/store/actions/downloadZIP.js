@@ -2,6 +2,7 @@ import Axios from "axios";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { toast } from "react-toastify";
 import clearAll from "./clearAll";
+import { capitalizeSentence } from "../../utils/helper";
 
 const downloadURI = (uri, name) => {
   var link = document.createElement("a");
@@ -38,6 +39,10 @@ export default (files) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { downloadZIP: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { downloadZIP: false } });
-    toast.error("Failed to download the files");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to download the files");
+    }
   }
 };

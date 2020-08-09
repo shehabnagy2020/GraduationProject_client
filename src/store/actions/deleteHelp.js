@@ -6,6 +6,8 @@ import {
   REDUX_HELP,
 } from "../CONSTANTS";
 import clearAll from "./clearAll";
+import { toast } from "react-toastify";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (id) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { deleteHelp: true } });
@@ -26,6 +28,7 @@ export default (id) => async (dispatch, getState) => {
     });
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deleteHelp: false } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deleteHelp: false } });
+    toast.success("help request deleted successfully");
   } catch (error) {
     const errRes = error.response;
     console.log(errRes);
@@ -35,5 +38,10 @@ export default (id) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deleteHelp: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deleteHelp: false } });
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to delete the help request");
+    }
   }
 };

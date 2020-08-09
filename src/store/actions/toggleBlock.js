@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import clearAll from "./clearAll";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 
@@ -36,6 +36,10 @@ export default (obj, setState) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleBlock: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleBlock: false } });
-    toast.error("Failed to do the operation, try again");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to do the operation, try again");
+    }
   }
 };

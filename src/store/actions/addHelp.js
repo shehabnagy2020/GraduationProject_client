@@ -5,7 +5,7 @@ import {
   REDUX_PAGE_ERRORS,
   REDUX_HELP,
 } from "../CONSTANTS";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 import clearAll from "./clearAll";
@@ -43,12 +43,7 @@ export default (obj, setState) => async (dispatch, getState) => {
       return;
     }
     if (errRes && errRes.data) {
-      if (errRes.data.message === "help requests maximum number reached")
-        toast.error("help requests maximum number reached");
-      if (
-        errRes.data.message === "help request with same subject already exist"
-      )
-        toast.error("help request with same subject already exist");
+      toast.error(capitalizeSentence(errRes.data.message));
     } else {
       toast.error("Failed to submit help request");
     }

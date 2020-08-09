@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import {
   REDUX_USER,
   API,
@@ -30,18 +30,9 @@ export default (user) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.data) {
-      if (errRes.data.message === "email already exist")
-        toast.error("email already exist");
-      if (errRes.data.message === "code already exist")
-        toast.error("code already exist");
-      if (errRes.data.message === "phone already exist")
-        toast.error("phone already exist");
-      if (errRes.data.message === "department not exist")
-        toast.error("grade year not exist");
-      if (errRes.data.message === "grade year not exist")
-        toast.error("department not exist");
+      toast.error(capitalizeSentence(errRes.data.message));
     } else {
-      toast.error("Failed to login");
+      toast.error("Failed to register");
     }
     console.log(errRes);
   }

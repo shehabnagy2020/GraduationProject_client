@@ -4,6 +4,7 @@ import getSavedPost from "./getSavedPost";
 import getPost from "./getPost";
 import { toast } from "react-toastify";
 import clearAll from "./clearAll";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (post_id, type, status) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: true } });
@@ -31,6 +32,10 @@ export default (post_id, type, status) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { toggleSavePost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { toggleSavePost: false } });
-    toast.error("Failed to do the operation, try again");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to do the operation, try again");
+    }
   }
 };

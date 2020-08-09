@@ -192,7 +192,13 @@ const Header = ({ noMargin, isSearch, assignmentMenu }) => {
                   block & inblock
                 </button>
               )}
-
+              <button
+                data-toggle="modal"
+                data-target="#aboutUsModal"
+                className="dropdown-item"
+              >
+                About us
+              </button>
               <button
                 onClick={(_) => dispatch(logout())}
                 className="dropdown-item"

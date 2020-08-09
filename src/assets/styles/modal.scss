@@ -1,6 +1,4 @@
 .modal {
-  .modal-dialog {
-  }
   .modal-content {
     background: $dark;
     .modal-header {
@@ -9,8 +7,6 @@
       .close {
         color: #fff;
       }
-    }
-    .modal-body {
     }
     .modal-footer {
       background: $secondary;
@@ -43,7 +39,29 @@
       color: $primary;
     }
   }
+  .modal-items-list {
+    margin: 0 0 15px 0;
+    &:last-of-type {
+      margin: 0;
+    }
+    .modal-items-list-header {
+      text-transform: capitalize;
+      color: #fff;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .modal-items-list-content {
+      padding: 0 30px;
+      display: flex;
+      flex-flow: column;
 
+      span {
+        text-transform: capitalize;
+        color: #fff;
+        font-size: 1rem;
+      }
+    }
+  }
   .modal-form-control {
     width: 100%;
     margin: 0 0 15px 0;

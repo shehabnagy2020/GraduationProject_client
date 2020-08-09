@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import getAssignments from "./getAssignments";
 import * as $ from "jquery";
 import { toast } from "react-toastify";
@@ -58,6 +58,10 @@ export default (obj, setState) => async (dispatch, getState) => {
       type: REDUX_PAGE_LOADERS,
       value: { addAssignment: false },
     });
-    toast.error("Failed to add assignment");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to add new assignment");
+    }
   }
 };

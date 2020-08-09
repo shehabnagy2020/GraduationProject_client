@@ -6,7 +6,7 @@ import {
   REDUX_HELP,
   REDUX_CLEAR,
 } from "../CONSTANTS";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 import getPost from "./getPost";
@@ -43,6 +43,10 @@ export default (obj, setState) => async (dispatch, getState) => {
     console.log(errRes);
     dispatch({ type: REDUX_PAGE_ERRORS, value: { addPost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addPost: false } });
-    toast.error("Failed to add new post");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to add new post");
+    }
   }
 };

@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
@@ -45,8 +45,9 @@ export default (user, setState, setErrorState) => async (
     dispatch({ type: REDUX_PAGE_ERRORS, value: { changePassword: 1 } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { changePassword: false } });
     if (errRes && errRes.data) {
-      if (errRes.data.message === "old password is invalid")
-        toast.error("old password is invalid");
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to change user password");
     }
   }
 };

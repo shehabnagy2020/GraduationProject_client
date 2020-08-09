@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import getPost from "./getPost";
 import getSavedPost from "./getSavedPost";
 import clearAll from "./clearAll";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (id, isSavedPost) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { deletePost: true } });
@@ -32,6 +33,10 @@ export default (id, isSavedPost) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { deletePost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { deletePost: false } });
-    toast.error("Failed to delete post");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to delete the post");
+    }
   }
 };

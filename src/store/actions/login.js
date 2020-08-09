@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import {
   REDUX_USER,
   API,
@@ -34,12 +34,7 @@ export default (user) => async (dispatch, getState) => {
     const errRes = error.response;
     console.log(errRes);
     if (errRes && errRes.data) {
-      if (errRes.data.message === "email address not exist")
-        toast.error("email address not exist");
-      if (errRes.data.message === "password is invalid")
-        toast.error("password is invalid");
-      if (errRes.data.message === "account hasn't approved yet")
-        toast.error("account hasn't approved yet");
+      toast.error(capitalizeSentence(errRes.data.message));
     } else {
       toast.error("Failed to login");
     }

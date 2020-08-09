@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import { toast } from "react-toastify";
 import * as $ from "jquery";
 import getPost from "./getPost";
@@ -43,6 +43,10 @@ export default (obj, setState, isSavedPost) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { editPost: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { editPost: false } });
-    toast.error("Failed to edit post");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to edit the post");
+    }
   }
 };

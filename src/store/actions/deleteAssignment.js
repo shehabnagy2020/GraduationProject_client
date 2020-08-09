@@ -3,6 +3,7 @@ import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import getAssignments from "./getAssignments";
 import { toast } from "react-toastify";
 import clearAll from "./clearAll";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (id) => async (dispatch, getState) => {
   dispatch({
@@ -45,6 +46,10 @@ export default (id) => async (dispatch, getState) => {
       type: REDUX_PAGE_LOADERS,
       value: { deleteAssignment: false },
     });
-    toast.success("Faild to delete assignment");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to delete the assignment");
+    }
   }
 };

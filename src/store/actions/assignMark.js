@@ -4,6 +4,7 @@ import getAssignmentsSolvers from "./getAssignmentsSolvers";
 import * as $ from "jquery";
 import { toast } from "react-toastify";
 import clearAll from "./clearAll";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (obj, setMark) => async (dispatch, getState) => {
   dispatch({
@@ -49,10 +50,9 @@ export default (obj, setMark) => async (dispatch, getState) => {
       value: { assignMark: false },
     });
     if (errRes && errRes.data) {
-      if (errRes.data.message === "given mark is greater than total mark")
-        toast.error("given mark is greater than total mark");
+      toast.error(capitalizeSentence(errRes.data.message));
     } else {
-      toast.error("Failed to assign mark for the assignment");
+      toast.error("Failed to assign mark for student assignment");
     }
   }
 };

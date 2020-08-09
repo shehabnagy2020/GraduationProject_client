@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import {
   REDUX_USER,
   API,
@@ -39,12 +39,9 @@ export default (user) => async (dispatch, getState) => {
     dispatch({ type: REDUX_PAGE_ERRORS, value: { changeInfo: 1 } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { changeInfo: false } });
     if (errRes && errRes.data) {
-      if (errRes.data.message === "email address already exist")
-        toast.error("email address already exist");
-      if (errRes.data.message === "phone already exist")
-        toast.error("phone already exist");
-      if (errRes.data.message === "name already exist")
-        toast.error("name already exist");
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to change use info");
     }
   }
 };

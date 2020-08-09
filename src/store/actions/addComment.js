@@ -2,6 +2,7 @@ import Axios from "axios";
 import { API, REDUX_PAGE_LOADERS, REDUX_PAGE_ERRORS } from "../CONSTANTS";
 import clearAll from "./clearAll";
 import { toast } from "react-toastify";
+import { capitalizeSentence } from "../../utils/helper";
 
 export default (obj) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { addComment: true } });
@@ -29,6 +30,10 @@ export default (obj) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { addComment: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { addComment: true } });
-    toast.error("Failed to add comment");
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to add new comment");
+    }
   }
 };

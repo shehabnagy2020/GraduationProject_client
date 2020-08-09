@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { convertToFormData } from "../../utils/helper";
+import { convertToFormData, capitalizeSentence } from "../../utils/helper";
 import {
   REDUX_USER,
   API,
@@ -8,6 +8,7 @@ import {
   REDUX_IS_LOGED,
 } from "../CONSTANTS";
 import clearAll from "./clearAll";
+import { toast } from "react-toastify";
 
 export default (user) => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { logout: true } });
@@ -39,5 +40,10 @@ export default (user) => async (dispatch, getState) => {
     }
     dispatch({ type: REDUX_PAGE_ERRORS, value: { logout: true } });
     dispatch({ type: REDUX_PAGE_LOADERS, value: { logout: true } });
+    if (errRes && errRes.data) {
+      toast.error(capitalizeSentence(errRes.data.message));
+    } else {
+      toast.error("Failed to logout");
+    }
   }
 };

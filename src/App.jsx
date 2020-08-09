@@ -24,6 +24,7 @@ import {
 } from "./store/CONSTANTS";
 import BlockUnblock from "./components/Modals/BlockUnblock/BlockUnblock";
 import ShowHelp from "./components/Modals/ShowHelp/ShowHelp";
+import AboutUs from "./components/Modals/AboutUs/AboutUs";
 
 function App({}) {
   const {
@@ -125,6 +126,7 @@ function App({}) {
       </Switch>
       <AddHelp />
       <BlockUnblock />
+      <AboutUs />
       {pageHelpers.helpItem && <ShowHelp />}
     </>
   );
