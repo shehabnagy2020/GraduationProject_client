@@ -34,7 +34,7 @@ const AboutUs = ({}) => {
             <div className="modal-items-list">
               <p className="modal-items-list-header">our doctor: </p>
               <div className="modal-items-list-content">
-                <span>Dr.Moahmed Mostafa</span>
+                <span>Dr.Mohamed Mostafa</span>
               </div>
             </div>
             <div className="modal-items-list">
