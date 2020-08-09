@@ -6,7 +6,8 @@ export default (obj, setState) => async (dispatch, getState) => {
   dispatch({
     type: REDUX_CLEAR,
   });
-  toast.warn("Session expried");
+  if (!toast.isActive("clearToast"))
+    toast.warn("Session expried", { toastId: "clearToast" });
   $(".modal-backdrop").remove();
   $(".modal").removeClass("show");
 };

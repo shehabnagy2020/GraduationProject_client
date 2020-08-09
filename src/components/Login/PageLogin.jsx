@@ -58,7 +58,8 @@ const PageLogin = ({ match, history, pageErrors, pageLoaders, loginUser }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (checkErrors()) {
-      loginUser({ ...state, role_id });
+      let obj = { ...state, role_id, email: state.email.toLowerCase() };
+      loginUser(obj);
     }
   };
 

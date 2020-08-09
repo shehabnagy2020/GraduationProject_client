@@ -86,7 +86,8 @@ const PageRegsiter = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (checkErrors()) {
-      registerUser({ ...state, role_id });
+      let obj = { ...state, role_id, email: state.email.toLowerCase() };
+      registerUser(obj);
     }
   };
 
