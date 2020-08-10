@@ -10,13 +10,19 @@ import PageSpinner from "../Loaders/PageSpinner";
 import AddPost from "../Modals/AddPost/AddPost";
 import "bootstrap";
 import { Scrollbars } from "react-custom-scrollbars";
-import { REDUX_POST, REDUX_PAGE_HELPERS } from "../../store/CONSTANTS";
+import {
+  REDUX_POST,
+  REDUX_PAGE_HELPERS,
+  REDUX_ACTIVE_COURSE,
+} from "../../store/CONSTANTS";
 import getRecentAssignments from "../../store/actions/getRecentAssignments";
 import getPost from "../../store/actions/getPost";
 
 const PageHome = () => {
   const dispatch = useDispatch();
-  const { pageLoaders, coursesArr } = useSelector((state) => state);
+  const { pageLoaders, coursesArr, activeCourse, userDetails } = useSelector(
+    (state) => state
+  );
 
   useEffect(() => {
     dispatch(getRecentAssignments());
@@ -35,6 +41,19 @@ const PageHome = () => {
   useEffect(() => {
     if (coursesArr.length >= 1) {
       dispatch(getPost(1));
+      if (!activeCourse.code) {
+        let type = userDetails.role_type == "assistant" ? 1 : 2;
+        for (let i = 0; i < coursesArr.length; i++) {
+          const element = coursesArr[i];
+          if (!element.is_blocked) {
+            dispatch({
+              type: REDUX_ACTIVE_COURSE,
+              value: { ...element, type },
+            });
+            break;
+          }
+        }
+      }
     }
   }, [coursesArr]);
   return (

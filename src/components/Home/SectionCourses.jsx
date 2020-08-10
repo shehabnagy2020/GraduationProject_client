@@ -29,21 +29,21 @@ const SectionCourses = () => {
                 <div className="item-circle">
                   <button
                     className={`item-half-circle ${
-                      activeCourse.name === item.name && activeCourse.type === 1
-                        ? "active"
-                        : ""
-                    }`}
-                    onClick={(_) => handleChange(item, 1)}
-                  >
-                    Lec
-                  </button>
-                  <button
-                    className={`item-half-circle ${
                       activeCourse.name === item.name && activeCourse.type === 2
                         ? "active"
                         : ""
                     }`}
                     onClick={(_) => handleChange(item, 2)}
+                  >
+                    Lec
+                  </button>
+                  <button
+                    className={`item-half-circle ${
+                      activeCourse.name === item.name && activeCourse.type === 1
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={(_) => handleChange(item, 1)}
                   >
                     Sec
                   </button>

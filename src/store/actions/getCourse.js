@@ -10,6 +10,7 @@ import clearAll from "./clearAll";
 
 export default () => async (dispatch, getState) => {
   dispatch({ type: REDUX_PAGE_LOADERS, value: { getCourse: true } });
+  let type = getState().userDetails.role_type == "assistant" ? 1 : 2;
   try {
     const res = await Axios({
       baseURL: API,
@@ -30,7 +31,7 @@ export default () => async (dispatch, getState) => {
         if (!element.is_blocked) {
           await dispatch({
             type: REDUX_ACTIVE_COURSE,
-            value: { ...element, type: 1 },
+            value: { ...element, type },
           });
           // await dispatch(getPost(1));
           break;
